@@ -1,7 +1,7 @@
 ---
 title: "[强化学习] 强化学习数学基础"
 published: 2026-09-08 21:01:00
-tags: ["强化学习", "马尔可夫决策过程", "MDP", "贝尔曼方程", "时序差分法", "SARSA", "Q-learning"]
+tags: ["强化学习", "马尔可夫决策过程", "MDP", "贝尔曼方程"]
 category: 强化学习
 draft: false
 ---
@@ -63,7 +63,7 @@ $$
 状态价值函数$V(s)$表示在状态$s$下，智能体能够获得的期望回报(未来可能得到多少回报)。对于马尔可夫奖励过程，它定义为回报的期望：
 
 $$
-V^\pi(s) = \mathbb{E}_\pi[G_t | S_t = s]
+\boxed{V^\pi(s) = \mathbb{E}_\pi[G_t | S_t = s]}
 $$
 
 其中$\mathbb{E}_\pi$表示在策略$\pi$下的期望值，$S_t = s$表示在时刻$t$处于状态$s$。
@@ -137,7 +137,7 @@ $$
 前面介绍的状态价值函数$V(s)$是指在状态$s$下，智能体能够获得的期望回报。而动作价值函数$Q(s, a)$是指在状态$s$下，**智能体采取具体动作$a$后**，能够获得的期望回报。
 
 $$
-Q^\pi(s, a) = \mathbb{E}_\pi[G_t | s_t = s, a_t = a]
+\boxed{Q^\pi(s, a) = \mathbb{E}_\pi[G_t | s_t = s, a_t = a]}
 $$
 
 同时也可以由动作价值函数得到状态价值函数：
@@ -147,51 +147,3 @@ V^\pi(s) = \mathbb{E}_\pi[Q^\pi(s, a_t)]
 $$
 
 动作价值函数对于决策更为重要，当我们有了动作价值函数后，当前最佳动作则为使得当前$Q(s, a)$最大的动作$a$，即：$\argmax \limits_a Q(s_t, a)$
-
-## 时序差分法(TD)
-
-### SARSA
-
-$$
-\boxed{
-\begin{array}{rl}
-1: & \text{初始化每个 }Q(s, a)\text{ 为 }0\\
-2: & \text{for 周期 }i=1 \text{ to }M \text{ do}\\
-3: & \qquad \text{for 时间步 }t=0 \text{ to }T-1 \text{ do}\\
-4: & \qquad \qquad \text{根据当前策略 }\pi\text{选择动作 }a_t\text{并执行},\text{得到 }r_{t+1}, s_{t+1}\\
-5: & \qquad \qquad \text{根据当前策略 }\pi\text{在 }s_{t+1}\text{选择动作 }a_{t+1}\\
-6: & \qquad \qquad Q(s_t, a_t)_{\text{target}} = r_{t+1} + \gamma Q(s_{t+1}, a_{t+1})\\
-7: & \qquad \qquad Q(s_t, a_t) \gets Q(s_t, a_t) + \alpha [Q(s_t, a_t)_{\text{target}} - Q(s_t, a_t)]\\
-8: & \qquad \text{结束循环}\\
-9: & \text{结束循环}\\
-10: & \text{返回 }Q(s, a)
-\end{array}
-}
-$$
-
-- $\alpha$为学习率，$0 < \alpha \leq 1$，用来控制每次更新的幅度
-
-SARSA选择动作基于旧的策略$\pi$，因此是一个**on-policy**(在线)算法。策略中的随机因素如果选择了奖励较低的动作，则会影响到Q值的更新，导致Q值收敛到一个较低的值。从而学习到更**保守**的策略。
-
-> [!TIP]
-> SARSA是$S \rightarrow A \rightarrow R \rightarrow S' \rightarrow A'$的缩写
-
-### Q-learning
-
-$$
-\boxed{
-\begin{array}{rl}
-1: & \text{初始化每个 }Q(s, a)\text{ 为 }0\\
-2: & \text{for 周期 }i=1 \text{ to }M \text{ do}\\
-3: & \qquad \text{for 时间步 }t=0 \text{ to }T-1 \text{ do}\\
-4: & \qquad \qquad \text{根据当前策略 }\pi\text{选择动作 }a_t\text{并执行},\text{得到 }r_{t+1}, s_{t+1}\\
-5: & \qquad \qquad Q(s_t, a_t)_{\text{target}} = r_{t+1} + \gamma \max_{a} Q(s_{t+1}, a)\\
-6: & \qquad \qquad Q(s_t, a_t) \gets Q(s_t, a_t) + \alpha [Q(s_t, a_t)_{\text{target}} - Q(s_t, a_t)]\\
-7: & \qquad \text{结束循环}\\
-8: & \text{结束循环}\\
-9: & \text{返回 }Q(s, a)
-\end{array}
-}
-$$
-
-Q-learning选择动作直接用最大的$Q(s_{t+1}, a)$，是一个**off-policy**(离线)算法。即使策略的随机性导致选择了奖励较低的动作，也不会拉低Q值，Q值始终选择历史最优，Q值会收敛到一个较高的值，从而学习到更**激进**的策略。
