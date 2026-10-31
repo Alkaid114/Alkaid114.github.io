@@ -11,11 +11,13 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body
-		class="bg-secondary-50 dark:bg-secondary-950 bg-linear-to-b from-secondary-100/50 dark:from-secondary-800/50 to-secondary-50 dark:to-secondary-950 bg-no-repeat bg-size-[100%_600px] font-atkinson text-xl leading-[1.7] wrap-break-word text-secondary-950 dark:text-secondary-50 max-md:text-lg"
+		class="bg-secondary-50 dark:bg-secondary-950 bg-linear-to-b from-secondary-100/50 dark:from-secondary-800/50 to-secondary-50 dark:to-secondary-950 bg-no-repeat bg-size-[100%_600px] font-atkinson text-fluid-s wrap-break-word text-secondary-950 dark:text-secondary-50"
 	>
 		<Header />
-		<main class="mx-auto w-180 max-w-[calc(100%-2em)] px-5 py-15 max-md:px-4 max-md:py-4">
-			<div class="prose prose-xl prose-theme max-w-none">
+		<main class="mx-auto w-full max-w-180 px-s py-xl">
+			<div
+				class="prose prose-xl prose-theme max-w-none text-fluid-s prose-h1:text-fluid-2xl prose-h2:text-fluid-xl prose-h3:text-fluid-l prose-h4:text-fluid-m prose-h5:text-fluid-s prose-h6:text-fluid-xs"
+			>
 				<h1>🧑‍🚀 Hello, Astronaut!</h1>
 			<p>
 				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
