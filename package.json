@@ -26,6 +26,7 @@
 	},
 	"devDependencies": {
 		"@iconify-json/fa6-brands": "^1.2.6",
+		"@iconify-json/fa6-regular": "^1.2.4",
 		"@iconify-json/lucide": "^1.2.149",
 		"@iconify-json/simple-icons": "^1.2.101",
 		"@tailwindcss/typography": "^0.5.20",

@@ -20,3 +20,5 @@ export const SOCIAL_LINKS: SocialLink[] = [
         icon: "fa6-brands:bilibili"
     }
 ]
+
+export const POSTS_PER_PAGE: number = 6;

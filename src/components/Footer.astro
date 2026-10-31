@@ -1,28 +1,53 @@
 ---
+import { Icon } from "astro-icon/components";
+
 const today = new Date();
 ---
 
-<footer class="px-s pt-l pb-3xl text-center text-secondary-700 dark:text-secondary-300">
-	<p>
-		&copy; {today.getFullYear()} Alkaid. Content licensed under
+<footer
+	class="px-s pt-l pb-3xl text-center text-secondary-700 dark:text-secondary-300 font-mono text-m"
+>
+	<div class="flex items-center justify-center gap-1 mb-2">
+		<Icon name="fa6-regular:copyright" class="w-4 h-4" />
+		<span>{today.getFullYear()} Alkaid.</span>
+	</div>
+
+	<p class="leading-relaxed max-w-prose mx-auto">
+		Code licensed under
+		<a
+			href="https://opensource.org/licenses/Apache-2.0"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="text-primary-600 dark:text-primary-300 hover:underline mx-2 whitespace-nowrap"
+		>
+			Apache License 2.0
+		</a>
+		, content licensed under
 		<a
 			href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
-			class="text-primary-600 dark:text-primary-300 hover:underline"
-			>CC BY-NC-ND 4.0</a
+			target="_blank"
+			rel="noopener noreferrer"
+			class="text-primary-600 dark:text-primary-300 hover:underline mx-2 whitespace-nowrap"
 		>
+			CC BY-NC-ND 4.0
+		</a>
 		except where otherwise noted.
 	</p>
-	<p>
+
+	<p class="leading-relaxed">
 		Built with
-		<a href="https://astro.build/" class="text-primary-600 dark:text-primary-300 hover:underline"
-			>Astro</a
+		<a
+			href="https://astro.build/"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="text-primary-600 dark:text-primary-300 hover:underline mx-2">Astro</a
 		>
 		and
 		<a
 			href="https://tailwindcss.com/"
-			class="text-primary-600 dark:text-primary-300 hover:underline"
-			>Tailwind CSS</a
+			target="_blank"
+			rel="noopener noreferrer"
+			class="text-primary-600 dark:text-primary-300 hover:underline mx-2">Tailwind CSS</a
 		>.
 	</p>
-	<div class="mt-4 flex justify-center gap-4"></div>
 </footer>
