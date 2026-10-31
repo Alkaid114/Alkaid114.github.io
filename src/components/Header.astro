@@ -3,10 +3,10 @@ import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
 
-<header class="bg-white px-4 shadow-[0_2px_8px_rgba(15,18,25,0.05)]">
+<header class="border-b border-secondary-200 dark:border-secondary-800 bg-secondary-50 dark:bg-secondary-900 px-4">
 	<nav class="flex items-center justify-between">
 		<h2 class="m-0">
-			<a href="/" class="inline-block px-2.5 py-5 text-ink no-underline">{SITE_TITLE}</a>
+			<a href="/" class="inline-block px-2.5 py-5 text-secondary-950 dark:text-secondary-50 no-underline">{SITE_TITLE}</a>
 		</h2>
 		<div class="flex">
 			<HeaderLink href="/">Home</HeaderLink>
@@ -14,7 +14,7 @@ import HeaderLink from './HeaderLink.astro';
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 		<div class="flex max-md:hidden">
-			<a href="https://m.webtoo.ls/@astro" target="_blank" class="flex text-ink">
+			<a href="https://m.webtoo.ls/@astro" target="_blank" class="flex text-secondary-950 dark:text-secondary-50">
 				<span class="sr-only">Follow Astro on Mastodon</span>
 				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
 					><path
@@ -23,7 +23,7 @@ import HeaderLink from './HeaderLink.astro';
 					></path></svg
 				>
 			</a>
-			<a href="https://twitter.com/astrodotbuild" target="_blank" class="flex text-ink">
+			<a href="https://twitter.com/astrodotbuild" target="_blank" class="flex text-secondary-950 dark:text-secondary-50">
 				<span class="sr-only">Follow Astro on Twitter</span>
 				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
 					><path
@@ -32,7 +32,7 @@ import HeaderLink from './HeaderLink.astro';
 					></path></svg
 				>
 			</a>
-			<a href="https://github.com/withastro/astro" target="_blank" class="flex text-ink">
+			<a href="https://github.com/withastro/astro" target="_blank" class="flex text-secondary-950 dark:text-secondary-50">
 				<span class="sr-only">Go to Astro's GitHub repo</span>
 				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
 					><path

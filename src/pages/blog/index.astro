@@ -13,12 +13,12 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scheme-light-dark">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body
-		class="bg-linear-to-b from-muted-light/50 to-white bg-no-repeat bg-size-[100%_600px] font-atkinson text-xl leading-[1.7] wrap-break-word text-muted-dark max-md:text-lg"
+		class="bg-secondary-50 dark:bg-secondary-950 bg-linear-to-b from-secondary-100/50 dark:from-secondary-800/50 to-secondary-50 dark:to-secondary-950 bg-no-repeat bg-size-[100%_600px] font-atkinson text-xl leading-[1.7] wrap-break-word text-secondary-950 dark:text-secondary-50 max-md:text-lg"
 	>
 		<Header />
 		<main class="mx-auto w-240 max-w-[calc(100%-2em)] px-5 py-15 max-md:px-4 max-md:py-4">
@@ -45,13 +45,13 @@ const posts = (await getCollection('blog')).sort(
 									)}
 									<h4
 										class:list={[
-											'm-0 leading-none text-ink transition-colors group-hover:text-accent',
+											'm-0 leading-none text-secondary-950 dark:text-secondary-50 transition-colors group-hover:text-primary-600 dark:group-hover:text-primary-300',
 											index === 0 ? 'text-[2.369em] max-md:text-[1.563em]' : 'text-[1.563em]',
 										]}
 									>
 										{post.data.title}
 									</h4>
-									<p class="m-0 text-muted transition-colors group-hover:text-accent">
+									<p class="m-0 text-secondary-700 dark:text-secondary-300 transition-colors group-hover:text-primary-600 dark:group-hover:text-primary-300">
 										<FormattedDate date={post.data.pubDate} />
 									</p>
 								</a>

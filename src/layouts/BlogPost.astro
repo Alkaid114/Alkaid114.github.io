@@ -11,13 +11,13 @@ type Props = CollectionEntry<'blog'>['data'];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" class="scheme-light-dark">
 	<head>
 		<BaseHead title={title} description={description} />
 	</head>
 
 	<body
-		class="bg-linear-to-b from-muted-light/50 to-white bg-no-repeat bg-size-[100%_600px] font-atkinson text-xl leading-[1.7] wrap-break-word text-muted-dark max-md:text-lg"
+		class="bg-secondary-50 dark:bg-secondary-950 bg-linear-to-b from-secondary-100/50 dark:from-secondary-800/50 to-secondary-50 dark:to-secondary-950 bg-no-repeat bg-size-[100%_600px] font-atkinson text-xl leading-[1.7] wrap-break-word text-secondary-950 dark:text-secondary-50 max-md:text-lg"
 	>
 		<Header />
 		<main class="m-0 w-full max-w-full">
@@ -36,8 +36,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 					}
 				</div>
 				<div class="mx-auto w-180 max-w-[calc(100%-2em)] px-5 py-5">
-					<div class="mb-5 border-b border-muted-light py-5 text-center leading-none">
-						<div class="mb-2.5 text-muted">
+					<div class="mb-5 border-b border-secondary-200 dark:border-secondary-800 py-5 text-center leading-none">
+						<div class="mb-2.5 text-secondary-700 dark:text-secondary-300">
 							<FormattedDate date={pubDate} />
 							{
 								updatedDate && (
@@ -47,7 +47,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 								)
 							}
 						</div>
-						<h1 class="m-0 text-[3.052em] leading-tight text-ink">{title}</h1>
+						<h1 class="m-0 text-[3.052em] leading-tight text-secondary-950 dark:text-secondary-50">{title}</h1>
 					</div>
 					<div class="prose prose-xl prose-theme max-w-none">
 						<slot />
