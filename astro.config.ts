@@ -6,6 +6,7 @@ import path from "node:path";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import type { AstroUserConfig } from "astro";
 import { defineConfig, fontProviders } from "astro/config";
 import icon from "astro-icon";
 
@@ -55,7 +56,7 @@ export default defineConfig({
 				"monospace",
 			],
 		},
-	],
+	] satisfies NonNullable<AstroUserConfig["fonts"]>,
 
 	vite: {
 		plugins: [
