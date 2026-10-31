@@ -1,0 +1,44 @@
+---
+import { Icon } from "astro-icon/components";
+import avatar from "../assets/avatar.png";
+import { SITE_TITLE, SOCIAL_LINKS } from "../consts";
+import Avatar from "./Avatar.astro";
+---
+
+<div
+	class="prose prose-xl prose-theme max-w-none text-fluid-s prose-h1:text-fluid-2xl prose-h2:text-fluid-xl prose-h3:text-fluid-l prose-h4:text-fluid-m prose-h5:text-fluid-s prose-h6:text-fluid-xs"
+>
+	<div
+		class="flex flex-col items-center gap-s text-center sm:flex-row sm:items-center sm:gap-m sm:text-left"
+	>
+		<Avatar src={avatar} alt="Avatar" />
+		<div class="w-full sm:w-auto m-5">
+			<h1 class="m-0 font-mono" data-drag-title>
+				{
+					Array.from(SITE_TITLE).map((char) => (
+						<span class="inline-block cursor-grab touch-pan-y select-none" data-char>
+							{char === " " ? "\u00A0" : char}
+						</span>
+					))
+				}
+			</h1>
+			<div class="flex justify-center sm:justify-start gap-m sm:pl-10">
+				{
+					SOCIAL_LINKS.map(({ href, label, icon }) => (
+						<a
+							href={href}
+							class="inline-flex text-secondary-200 hover:text-primary-400"
+						>
+							<Icon name={icon} class="size-8" aria-hidden="true" />
+							<span class="sr-only">{label}</span>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	import "../scripts/drag-title";
+</script>

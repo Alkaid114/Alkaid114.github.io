@@ -1,14 +1,12 @@
 ---
-import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import { getCollection } from "astro:content";
-import { Icon } from "astro-icon/components";
-import avatar from "../assets/avatar.png";
-import Avatar from "../components/Avatar.astro";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
-import { SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS, POSTS_PER_PAGE } from "../consts";
+import Profile from "../components/Profile.astro";
+import { POSTS_PER_PAGE, SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const pageSize = POSTS_PER_PAGE;
@@ -45,31 +43,7 @@ const paginationDisabledClass =
 	>
 		<Header />
 		<main class="mx-auto w-full max-w-180 flex-1 px-s py-xl">
-			<div
-				class="prose prose-xl prose-theme max-w-none text-fluid-s prose-h1:text-fluid-2xl prose-h2:text-fluid-xl prose-h3:text-fluid-l prose-h4:text-fluid-m prose-h5:text-fluid-s prose-h6:text-fluid-xs"
-			>
-				<div
-					class="flex flex-col items-center gap-s text-center sm:flex-row sm:items-center sm:gap-m sm:text-left"
-				>
-					<Avatar src={avatar} alt="Avatar" />
-					<div class="w-full sm:w-auto m-5">
-						<h1 class="m-0 font-mono">{SITE_TITLE}</h1>
-						<div class="flex justify-center sm:justify-start gap-m sm:pl-10">
-							{
-								SOCIAL_LINKS.map(({ href, label, icon }) => (
-									<a
-										href={href}
-										class="inline-flex text-secondary-200 hover:text-primary-400"
-									>
-										<Icon name={icon} class="size-8" aria-hidden="true" />
-										<span class="sr-only">{label}</span>
-									</a>
-								))
-							}
-						</div>
-					</div>
-				</div>
-			</div>
+			<Profile />
 
 			<section class="mt-3xl" aria-labelledby="posts-heading">
 				<h2

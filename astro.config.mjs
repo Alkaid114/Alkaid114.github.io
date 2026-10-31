@@ -69,8 +69,7 @@ export default defineConfig({
 					const watcher = watch(src, { recursive: true }, (event, file) => {
 						if (!file) return;
 						const abs = path.join(src, file);
-						const type =
-							event === "rename" ? (existsSync(abs) ? "add" : "unlink") : "change";
+						const type = event === "rename" ? (existsSync(abs) ? "add" : "unlink") : "change";
 						server.watcher.emit(type, abs);
 					});
 					server.httpServer?.on("close", () => watcher.close());
