@@ -18,10 +18,10 @@ const posts = (await getCollection('blog')).sort(
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body
-		class="bg-secondary-50 dark:bg-secondary-950 bg-linear-to-b from-secondary-100/50 dark:from-secondary-800/50 to-secondary-50 dark:to-secondary-950 bg-no-repeat bg-size-[100%_600px] font-atkinson text-fluid-s wrap-break-word text-secondary-950 dark:text-secondary-50"
+		class="flex min-h-dvh flex-col bg-secondary-50 dark:bg-secondary-950 bg-linear-to-b from-secondary-100/50 dark:from-secondary-800/50 to-secondary-50 dark:to-secondary-950 bg-no-repeat bg-size-[100%_600px] font-atkinson text-fluid-s wrap-break-word text-secondary-950 dark:text-secondary-50"
 	>
 		<Header />
-		<main class="mx-auto w-full max-w-240 px-s py-xl">
+		<main class="mx-auto w-full max-w-240 flex-1 px-s py-xl">
 			<section>
 				<ul class="m-0 grid list-none grid-cols-1 gap-l p-0 md:grid-cols-2">
 					{

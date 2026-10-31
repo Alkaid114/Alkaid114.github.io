@@ -1,8 +1,10 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import avatar from "../assets/avatar.png";
+import Avatar from "../components/Avatar.astro";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 ---
 
 <!doctype html>
@@ -11,43 +13,21 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body
-		class="bg-secondary-50 dark:bg-secondary-950 bg-linear-to-b from-secondary-100/50 dark:from-secondary-800/50 to-secondary-50 dark:to-secondary-950 bg-no-repeat bg-size-[100%_600px] font-atkinson text-fluid-s wrap-break-word text-secondary-950 dark:text-secondary-50"
+		class="flex min-h-dvh flex-col dark:bg-secondary-900 bg-no-repeat bg-size-[100%_600px] font-atkinson text-fluid-s wrap-break-word text-secondary-950 dark:text-secondary-50"
 	>
 		<Header />
-		<main class="mx-auto w-full max-w-180 px-s py-xl">
+		<main class="mx-auto w-full max-w-180 flex-1 px-s py-xl">
 			<div
-				class="prose prose-xl prose-theme max-w-none text-fluid-s prose-h1:text-fluid-2xl prose-h2:text-fluid-xl prose-h3:text-fluid-l prose-h4:text-fluid-m prose-h5:text-fluid-s prose-h6:text-fluid-xs"
+				class="min-h-100 prose prose-xl prose-theme max-w-none text-fluid-s prose-h1:text-fluid-2xl prose-h2:text-fluid-xl prose-h3:text-fluid-l prose-h4:text-fluid-m prose-h5:text-fluid-s prose-h6:text-fluid-xs"
 			>
-				<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your{' '}
-				<code>astro.config.mjs</code> file. You can customize your setup with{' '}
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to{' '}
-				<a href="https://docs.astro.build/">read the docs</a>{' '}
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out{' '}
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>{' '}
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+				<div
+					class="flex flex-col items-center gap-s text-center sm:flex-row sm:items-center sm:gap-m sm:text-left"
+				>
+					<Avatar src={avatar} alt="Avatar" />
+					<div class="w-full sm:w-auto m-5">
+						<h1 class="m-0">{SITE_TITLE}</h1>
+					</div>
+				</div>
 			</div>
 		</main>
 		<Footer />
