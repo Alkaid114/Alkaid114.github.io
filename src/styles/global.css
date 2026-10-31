@@ -5,33 +5,33 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-atkinson: "Atkinson Hyperlegible", sans-serif;
+	--font-atkinson: "Atkinson Hyperlegible", sans-serif;
 }
 
 @utility prose-theme {
-  --tw-prose-body: light-dark(var(--color-secondary-950), var(--color-secondary-50));
-  --tw-prose-headings: light-dark(var(--color-secondary-950), var(--color-secondary-50));
-  --tw-prose-lead: light-dark(var(--color-secondary-700), var(--color-secondary-300));
-  --tw-prose-links: light-dark(var(--color-primary-600), var(--color-primary-300));
-  --tw-prose-bold: light-dark(var(--color-secondary-950), var(--color-secondary-50));
-  --tw-prose-counters: light-dark(var(--color-secondary-700), var(--color-secondary-300));
-  --tw-prose-bullets: light-dark(var(--color-secondary-700), var(--color-secondary-300));
-  --tw-prose-hr: light-dark(var(--color-secondary-200), var(--color-secondary-800));
-  --tw-prose-quotes: light-dark(var(--color-secondary-700), var(--color-secondary-300));
-  --tw-prose-quote-borders: light-dark(var(--color-primary-600), var(--color-primary-300));
-  --tw-prose-captions: light-dark(var(--color-secondary-700), var(--color-secondary-300));
-  --tw-prose-code: light-dark(var(--color-secondary-950), var(--color-secondary-50));
-  --tw-prose-pre-code: light-dark(var(--color-secondary-950), var(--color-secondary-50));
-  --tw-prose-pre-bg: light-dark(var(--color-secondary-100), var(--color-secondary-800));
-  --tw-prose-th-borders: light-dark(var(--color-secondary-200), var(--color-secondary-800));
-  --tw-prose-td-borders: light-dark(var(--color-secondary-200), var(--color-secondary-800));
+	--tw-prose-body: light-dark(var(--color-secondary-950), var(--color-secondary-50));
+	--tw-prose-headings: light-dark(var(--color-secondary-950), var(--color-secondary-50));
+	--tw-prose-lead: light-dark(var(--color-secondary-700), var(--color-secondary-300));
+	--tw-prose-links: light-dark(var(--color-primary-600), var(--color-primary-300));
+	--tw-prose-bold: light-dark(var(--color-secondary-950), var(--color-secondary-50));
+	--tw-prose-counters: light-dark(var(--color-secondary-700), var(--color-secondary-300));
+	--tw-prose-bullets: light-dark(var(--color-secondary-700), var(--color-secondary-300));
+	--tw-prose-hr: light-dark(var(--color-secondary-200), var(--color-secondary-800));
+	--tw-prose-quotes: light-dark(var(--color-secondary-700), var(--color-secondary-300));
+	--tw-prose-quote-borders: light-dark(var(--color-primary-600), var(--color-primary-300));
+	--tw-prose-captions: light-dark(var(--color-secondary-700), var(--color-secondary-300));
+	--tw-prose-code: light-dark(var(--color-secondary-950), var(--color-secondary-50));
+	--tw-prose-pre-code: light-dark(var(--color-secondary-950), var(--color-secondary-50));
+	--tw-prose-pre-bg: light-dark(var(--color-secondary-100), var(--color-secondary-800));
+	--tw-prose-th-borders: light-dark(var(--color-secondary-200), var(--color-secondary-800));
+	--tw-prose-td-borders: light-dark(var(--color-secondary-200), var(--color-secondary-800));
 
-  /* Inline code: keep it on a light chip without backticks, as in the starter. */
-  & :where(code):not(:where(pre *)) {
-    @apply rounded-xs bg-secondary-100 px-1.25 py-0.5 font-normal text-secondary-950 dark:bg-secondary-800 dark:text-secondary-50;
-  }
-  & :where(code):not(:where(pre *))::before,
-  & :where(code):not(:where(pre *))::after {
-    content: none;
-  }
+	/* Inline code: keep it on a light chip without backticks, as in the starter. */
+	& :where(code):not(:where(pre *)) {
+		@apply rounded-xs bg-secondary-100 px-1.25 py-0.5 font-normal text-secondary-950 dark:bg-secondary-800 dark:text-secondary-50;
+	}
+	& :where(code):not(:where(pre *))::before,
+	& :where(code):not(:where(pre *))::after {
+		content: none;
+	}
 }
