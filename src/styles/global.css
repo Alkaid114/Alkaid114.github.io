@@ -5,8 +5,9 @@
 
 @plugin "@tailwindcss/typography";
 
-@theme {
-	--font-atkinson: "Atkinson Hyperlegible", sans-serif;
+@theme inline {
+	--font-sans: var(--font-inter);
+	--font-mono: var(--font-jetbrains-mono);
 }
 
 @utility prose-theme {
@@ -35,4 +36,17 @@
 	& :where(code):not(:where(pre *))::after {
 		content: none;
 	}
+}
+
+@theme {
+	@keyframes blink {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0;
+		}
+	}
+	--animate-blink: blink 1s step-end infinite;
 }

@@ -1,10 +1,11 @@
 ---
+import { Icon } from "astro-icon/components";
 import avatar from "../assets/avatar.png";
 import Avatar from "../components/Avatar.astro";
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { SITE_DESCRIPTION, SITE_TITLE, SOCIAL_LINKS } from "../consts";
 ---
 
 <!doctype html>
@@ -13,7 +14,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body
-		class="flex min-h-dvh flex-col dark:bg-secondary-900 bg-no-repeat bg-size-[100%_600px] font-atkinson text-fluid-s wrap-break-word text-secondary-950 dark:text-secondary-50"
+		class="flex min-h-dvh flex-col dark:bg-secondary-900 bg-no-repeat bg-size-[100%_600px] font-sans text-fluid-s wrap-break-word text-secondary-950 dark:text-secondary-50"
 	>
 		<Header />
 		<main class="mx-auto w-full max-w-180 flex-1 px-s py-xl">
@@ -25,7 +26,20 @@ import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 				>
 					<Avatar src={avatar} alt="Avatar" />
 					<div class="w-full sm:w-auto m-5">
-						<h1 class="m-0">{SITE_TITLE}</h1>
+						<h1 class="m-0 font-mono">{SITE_TITLE}</h1>
+						<div class="flex justify-center sm:justify-start gap-m sm:pl-10">
+							{
+								SOCIAL_LINKS.map(({ href, label, icon }) => (
+									<a
+										href={href}
+										class="inline-flex text-secondary-200 hover:text-primary-400"
+									>
+										<Icon name={icon} class="size-8" aria-hidden="true" />
+										<span class="sr-only">{label}</span>
+									</a>
+								))
+							}
+						</div>
 					</div>
 				</div>
 			</div>

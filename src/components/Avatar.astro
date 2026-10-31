@@ -1,6 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
 interface Props {
 	src: ImageMetadata;
@@ -11,11 +11,10 @@ interface Props {
 const { src, alt, class: className } = Astro.props;
 ---
 
-<div class:list={['not-prose group relative inline-block w-fit shrink-0', className]}>
+<div class:list={["not-prose group relative inline-block w-fit shrink-0", className]}>
 	<div
 		class="absolute top-0 left-0 size-40 translate-x-2 translate-y-2 bg-secondary-300 outline-8 outline-secondary-300 transition-all duration-200 ease-out group-hover:translate-x-4 group-hover:translate-y-4 group-hover:bg-primary-200 group-hover:outline-primary-200 dark:bg-secondary-700 dark:outline-secondary-700 dark:group-hover:bg-primary-800 dark:group-hover:outline-primary-800"
-	>
-	</div>
+	></div>
 	<Image
 		src={src}
 		alt={alt}

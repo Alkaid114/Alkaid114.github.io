@@ -14,10 +14,7 @@
 		"lineWidth": 100
 	},
 	"html": {
-		"experimentalFullSupportEnabled": true,
-		"formatter": {
-			"enabled": true
-		}
+		"experimentalFullSupportEnabled": true
 	},
 	"linter": {
 		"enabled": true,
