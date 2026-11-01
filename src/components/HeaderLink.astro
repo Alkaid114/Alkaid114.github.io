@@ -1,6 +1,5 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import { stripLocale } from "../i18n/ui";
 
 type Props = HTMLAttributes<"a">;
 
@@ -9,13 +8,9 @@ const { href, class: className, ...props } = Astro.props;
 const normalize = (path: string) => `/${path.replace(/^\/+|\/+$/g, "")}`;
 
 const current = normalize(Astro.url.pathname);
-const base = normalize(stripLocale(Astro.url.pathname));
-const target = normalize(stripLocale(href ?? "/"));
-const subpath = base.match(/[^/]+/g);
+const subpath = current.match(/[^/]+/g);
 const isActive =
-	current === normalize(href ?? "/") ||
-	base === target ||
-	normalize(`/${subpath?.[0] ?? ""}`) === target;
+	current === normalize(href ?? "/") || normalize(`/${subpath?.[0] ?? ""}`) === normalize(href ?? "/");
 ---
 
 <a

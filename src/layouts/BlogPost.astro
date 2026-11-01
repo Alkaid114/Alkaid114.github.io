@@ -3,16 +3,16 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 import FormattedDate from "../components/FormattedDate.astro";
-import { getLocale, t } from "../i18n/ui";
+import { t, type UIKey } from "../i18n/ui";
 import PageLayout from "./PageLayout.astro";
 
-type Props = CollectionEntry<"posts">["data"];
+type Props = CollectionEntry<"posts">["data"] & { titleKey?: UIKey };
 
-const { title, description, published, updatedDate, heroImage, license, author } = Astro.props;
-const locale = getLocale(Astro.url.pathname);
+const { title, description, published, updatedDate, heroImage, license, author, titleKey } =
+	Astro.props;
 ---
 
-<PageLayout title={title} description={description}>
+<PageLayout {title} description={description} {titleKey}>
 	<article>
 		<div class="w-full">
 			{
@@ -36,7 +36,8 @@ const locale = getLocale(Astro.url.pathname);
 					{
 						updatedDate && (
 							<div class="italic">
-								{t(locale, "lastUpdated")} <FormattedDate date={updatedDate} />
+								<span data-i18n="lastUpdated">{t("zh", "lastUpdated")}</span>{" "}
+								<FormattedDate date={updatedDate} />
 							</div>
 						)
 					}
@@ -50,7 +51,9 @@ const locale = getLocale(Astro.url.pathname);
 									/>
 									<div class="flex flex-col flex-1 text-left ml-4">
 										<p>
-											{t(locale, "licenseCaution")}{" "}
+											<span data-i18n="licenseCaution">
+												{t("zh", "licenseCaution")}
+											</span>{" "}
 											{license.url ? (
 												<a href={license.url} class="underline">
 													{license.name}
@@ -61,8 +64,16 @@ const locale = getLocale(Astro.url.pathname);
 												</span>
 											)}
 										</p>
-										<p class="text-fluid-xs font-normal">
-											{t(locale, license.url ? "licenseWithUrl" : "licenseNoUrl")}
+										<p
+											class="text-fluid-xs font-normal"
+											data-i18n={
+												license.url ? "licenseWithUrl" : "licenseNoUrl"
+											}
+										>
+											{t(
+												"zh",
+												license.url ? "licenseWithUrl" : "licenseNoUrl",
+											)}
 										</p>
 									</div>
 								</div>
@@ -70,7 +81,10 @@ const locale = getLocale(Astro.url.pathname);
 						)
 					}
 				</div>
-				<h1 class="m-0 text-fluid-3xl text-secondary-950 dark:text-secondary-50">
+				<h1
+					data-i18n={titleKey}
+					class="m-0 text-fluid-3xl text-secondary-950 dark:text-secondary-50"
+				>
 					{title}
 				</h1>
 			</div>

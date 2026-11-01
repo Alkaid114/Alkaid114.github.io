@@ -15,14 +15,6 @@ export default defineConfig({
 	site: "https://example.com",
 	integrations: [mdx(), sitemap(), icon()],
 
-	i18n: {
-		defaultLocale: "zh",
-		locales: ["zh", "en"],
-		routing: {
-			prefixDefaultLocale: false,
-		},
-	},
-
 	fonts: [
 		{
 			provider: fontProviders.fontsource(),

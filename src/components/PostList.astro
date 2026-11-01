@@ -1,24 +1,23 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import type { Page } from "astro";
-import { type Locale, localePath, t } from "../i18n/ui";
+import { t } from "../i18n/ui";
 import { excerptFromBody } from "../utils/excerpt";
 import FormattedDate from "./FormattedDate.astro";
 import Profile from "./Profile.astro";
 
 interface Props {
 	page: Page<CollectionEntry<"posts">>;
-	locale: Locale;
 }
 
-const { page, locale } = Astro.props;
+const { page } = Astro.props;
 
 const posts = page.data.map((post) => ({
 	...post,
 	excerpt: excerptFromBody(post.body) || post.data.description,
 }));
 
-const pageHref = (n: number) => localePath(n === 1 ? "/" : `/${n}/`, locale);
+const pageHref = (n: number) => (n === 1 ? "/" : `/${n}/`);
 const paginationLinkClass =
 	"inline-flex min-w-8 items-center justify-center rounded-md px-2xs py-3xs no-underline transition-colors";
 const paginationIdleClass =
@@ -32,15 +31,19 @@ const paginationDisabledClass =
 <Profile />
 
 <section class="mt-3xl" aria-labelledby="posts-heading">
-	<h2 id="posts-heading" class="m-0 font-mono text-fluid-l text-primary-700 dark:text-primary-400">
-		{t(locale, "posts")}
+	<h2
+		id="posts-heading"
+		data-i18n="posts"
+		class="m-0 font-mono text-fluid-l text-primary-700 dark:text-primary-400"
+	>
+		{t("zh", "posts")}
 	</h2>
 	<ul class="m-0 mt-s list-none divide-y divide-secondary-200 p-0 dark:divide-secondary-800">
 		{
 			posts.map((post) => (
 				<li>
 					<a
-						href={localePath(`/posts/${post.id}/`, locale)}
+						href={`/posts/${post.id}/`}
 						class="group flex flex-col gap-3xs py-s no-underline sm:flex-row sm:items-baseline sm:justify-between sm:gap-m"
 					>
 						<span class="flex min-w-0 flex-col gap-3xs">
@@ -63,8 +66,9 @@ const paginationDisabledClass =
 	{
 		page.lastPage > 1 && (
 			<nav
+				data-i18n-aria-label="pagination"
+				aria-label={t("zh", "pagination")}
 				class="mt-l flex items-center justify-center gap-3xs text-fluid-xs"
-				aria-label={t(locale, "pagination")}
 			>
 				{page.url.prev ? (
 					<a
@@ -72,14 +76,14 @@ const paginationDisabledClass =
 						href={page.url.prev}
 						class:list={[paginationLinkClass, paginationIdleClass]}
 					>
-						{t(locale, "previous")}
+						<span data-i18n="previous">{t("zh", "previous")}</span>
 					</a>
 				) : (
 					<span
 						class:list={[paginationLinkClass, paginationDisabledClass]}
 						aria-disabled="true"
 					>
-						{t(locale, "previous")}
+						<span data-i18n="previous">{t("zh", "previous")}</span>
 					</span>
 				)}
 				{Array.from({ length: page.lastPage }, (_, i) => i + 1).map((n) => (
@@ -100,14 +104,14 @@ const paginationDisabledClass =
 						href={page.url.next}
 						class:list={[paginationLinkClass, paginationIdleClass]}
 					>
-						{t(locale, "next")}
+						<span data-i18n="next">{t("zh", "next")}</span>
 					</a>
 				) : (
 					<span
 						class:list={[paginationLinkClass, paginationDisabledClass]}
 						aria-disabled="true"
 					>
-						{t(locale, "next")}
+						<span data-i18n="next">{t("zh", "next")}</span>
 					</span>
 				)}
 			</nav>

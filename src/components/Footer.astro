@@ -1,11 +1,9 @@
 ---
-import { Icon } from "astro-icon/components";
-import { getLocale, t } from "../i18n/ui";
-import { NICKNAME, GIT_REPO_COMMIT_HASH_URL } from "../consts";
 import { execSync } from "node:child_process";
+import { Icon } from "astro-icon/components";
+import { GIT_REPO_COMMIT_HASH_URL, NICKNAME } from "../consts";
 
 const today = new Date();
-const locale = getLocale(Astro.url.pathname);
 const linkClass = "text-primary-600 dark:text-primary-300 hover:underline mx-2 whitespace-nowrap";
 
 const fullHash =
@@ -36,7 +34,7 @@ const commitUrl = GIT_REPO_COMMIT_HASH_URL.replace("{}", fullHash);
 	</div>
 
 	<p class="leading-relaxed max-w-prose mx-auto">
-		{t("en", "codeLicense")}
+		Code licensed under
 		<a
 			href="https://opensource.org/licenses/Apache-2.0"
 			target="_blank"
@@ -45,7 +43,7 @@ const commitUrl = GIT_REPO_COMMIT_HASH_URL.replace("{}", fullHash);
 		>
 	</p>
 	<p class="leading-relaxed max-w-prose mx-auto">
-		{t("en", "contentLicense")}
+		Content licensed under
 		<a
 			href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
 			target="_blank"
@@ -53,14 +51,14 @@ const commitUrl = GIT_REPO_COMMIT_HASH_URL.replace("{}", fullHash);
 			class={linkClass}>CC BY-NC-ND 4.0</a
 		>
 	</p>
-	<p class="leading-relaxed max-w-prose mx-auto">{t("en", "licenseNote")}</p>
+	<p class="leading-relaxed max-w-prose mx-auto">Except where otherwise noted.</p>
 
 	<p class="leading-relaxed mt-s">
-		{t("en", "builtWith")}
+		Built with
 		<a href="https://astro.build/" target="_blank" rel="noopener noreferrer" class={linkClass}
 			>Astro</a
 		>
-		{t("en", "conjunction")}
+		and
 		<a
 			href="https://tailwindcss.com/"
 			target="_blank"

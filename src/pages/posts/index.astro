@@ -10,9 +10,17 @@ const posts = (await getCollection("posts"))
 	.sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
 ---
 
-<PageLayout title={`${t("zh", "posts")} | ${SITE_TITLE}`} description={t("zh", "siteDescription")}>
-	<h1 class="m-0 mb-l font-mono text-fluid-2xl text-primary-700 dark:text-primary-400">
+<PageLayout
+	title={`${t("zh", "posts")} | ${SITE_TITLE}`}
+	titleKey="posts"
+	titleSuffix={`| ${SITE_TITLE}`}
+	description={t("zh", "siteDescription")}
+>
+	<h1
+		data-i18n="posts"
+		class="m-0 mb-l font-mono text-fluid-2xl text-primary-700 dark:text-primary-400"
+	>
 		{t("zh", "posts")}
 	</h1>
-	<PostGrid {posts} locale="zh" />
+	<PostGrid {posts} />
 </PageLayout>

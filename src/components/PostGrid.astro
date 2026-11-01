@@ -1,15 +1,13 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import { type Locale, localePath } from "../i18n/ui";
 import FormattedDate from "./FormattedDate.astro";
 
 interface Props {
 	posts: CollectionEntry<"posts">[];
-	locale: Locale;
 }
 
-const { posts, locale } = Astro.props;
+const { posts } = Astro.props;
 ---
 
 <ul class="m-0 grid list-none grid-cols-1 gap-l p-0 md:grid-cols-2">
@@ -17,7 +15,7 @@ const { posts, locale } = Astro.props;
 		posts.map((post, index) => (
 			<li class:list={[index === 0 ? "text-center md:col-span-2" : "max-md:text-center"]}>
 				<a
-					href={localePath(`/posts/${post.id}/`, locale)}
+					href={`/posts/${post.id}/`}
 					class="group block no-underline transition duration-200"
 				>
 					{post.data.heroImage && (

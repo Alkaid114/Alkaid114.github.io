@@ -6,23 +6,19 @@ import { Font } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import FallbackImage from "../assets/blog-placeholder-1.jpg";
 import { SITE_TITLE } from "../consts";
-import { getLocale, LOCALE_META, LOCALES, switchLocale } from "../i18n/ui";
+import type { UIKey } from "../i18n/ui";
 
 interface Props {
 	title: string;
 	description: string;
 	image?: ImageMetadata;
+	titleKey?: UIKey;
+	titleSuffix?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = FallbackImage } = Astro.props;
-
-const locale = getLocale(Astro.url.pathname);
-const alternates = LOCALES.map((code) => ({
-	code,
-	href: new URL(switchLocale(Astro.url.pathname, code), Astro.site).href,
-}));
+const { title, description, image = FallbackImage, titleKey, titleSuffix } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -45,21 +41,12 @@ const alternates = LOCALES.map((code) => ({
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL}>
 
-<!-- Language alternates -->
-{
-	alternates.map(({ code, href }) => (
-		<link rel="alternate" hreflang={LOCALE_META[code].htmlLang} href={href} />
-	))
-}
-<link rel="alternate" hreflang="x-default" href={alternates[0]?.href}>
-
 <!-- Primary Meta Tags -->
-<title>{title}</title>
+<title data-i18n-title={titleKey} data-i18n-title-suffix={titleSuffix}>{title}</title>
 <meta name="description" content={description}>
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:locale" content={LOCALE_META[locale].htmlLang.replace("-", "_")}>
 <meta property="og:url" content={Astro.url}>
 <meta property="og:title" content={title}>
 <meta property="og:description" content={description}>

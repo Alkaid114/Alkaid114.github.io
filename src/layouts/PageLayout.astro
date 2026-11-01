@@ -2,21 +2,22 @@
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import { getLocale, LOCALE_META } from "../i18n/ui";
+import type { UIKey } from "../i18n/ui";
 
 interface Props {
 	title: string;
 	description: string;
+	titleKey?: UIKey;
+	titleSuffix?: string;
 }
 
-const { title, description } = Astro.props;
-const locale = getLocale(Astro.url.pathname);
+const { title, description, titleKey, titleSuffix } = Astro.props;
 ---
 
 <!doctype html>
-<html lang={LOCALE_META[locale].htmlLang} class="scheme-light-dark">
+<html lang="zh-CN" class="scheme-light-dark">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead {title} {description} {titleKey} {titleSuffix} />
 	</head>
 	<body
 		class="relative flex min-h-dvh flex-col bg-secondary-100 dark:bg-secondary-950 bg-no-repeat bg-size-[100%_600px] font-sans text-fluid-s wrap-break-word text-secondary-950 dark:text-secondary-50"
@@ -56,5 +57,8 @@ const locale = getLocale(Astro.url.pathname);
 			</div>
 		</main>
 		<Footer />
+		<script>
+			import "../scripts/i18n";
+		</script>
 	</body>
 </html>

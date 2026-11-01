@@ -1,20 +1,15 @@
 ---
-import { getLocale, LOCALE_META } from "../i18n/ui";
-
 interface Props {
 	date: Date;
 }
 
 const { date } = Astro.props;
-const locale = getLocale(Astro.url.pathname);
+
+const formatted = date.toLocaleDateString("zh-CN", {
+	year: "numeric",
+	month: "2-digit",
+	day: "2-digit",
+});
 ---
 
-<time datetime={date.toISOString()}>
-	{
-		date.toLocaleDateString(LOCALE_META[locale].dateLocale, {
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-		})
-	}
-</time>
+<time datetime={date.toISOString()} data-locale-date>{formatted}</time>
