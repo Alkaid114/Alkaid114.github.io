@@ -1,6 +1,7 @@
 export const NICKNAME = "Alkaid";
 export const SITE_TITLE = "Alkaid's Blog";
 export const SITE_DESCRIPTION = "Welcome to my blog!";
+export const SITE_URL = "https://alkaid114.github.io/";
 
 interface SocialLink {
 	href: string;

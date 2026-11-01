@@ -12,12 +12,13 @@ import type { AstroUserConfig } from "astro";
 import { defineConfig, fontProviders } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
+import { SITE_URL } from "./src/consts";
 
 const mdPlugins = mirrordown({ features: { math: true } });
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://example.com",
+	site: SITE_URL,
 	integrations: [expressiveCode(), mdx(), sitemap(), icon()],
 
 	markdown: {
