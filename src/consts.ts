@@ -40,9 +40,9 @@ export const FRIEND_LINKS: FriendLink[] = [
 		url: "https://biscuit0613.github.io/",
 	},
 	{
-        title: "Kinntaku",
+		title: "Kinntaku",
 		avatar: "https://avatars.githubusercontent.com/u/174914905?v=4",
 		description: "Kinntaku's blog",
 		url: "https://kinntaku.github.io/",
-    },
-]
+	},
+];

@@ -9,6 +9,7 @@ const posts = defineCollection({
 		z.object({
 			title: z.string(),
 			description: z.string(),
+			category: z.string().trim().min(1).optional(),
 			// Transform string to Date object
 			published: z.coerce.date(),
 			license: z

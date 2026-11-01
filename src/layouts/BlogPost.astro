@@ -1,17 +1,32 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import { Icon } from "astro-icon/components";
 import FormattedDate from "../components/FormattedDate.astro";
 import Translated from "../components/Translated.astro";
-import type { UIKey } from "../i18n/ui";
-import PageLayout from "./PageLayout.astro";
 import { NICKNAME } from "../consts";
+import type { UIKey } from "../i18n/ui";
+import { categoryHref, categoryLookup, resolveCategory } from "../utils/categories";
+import PageLayout from "./PageLayout.astro";
 
 type Props = CollectionEntry<"posts">["data"] & { titleKey?: UIKey };
 
-const { title, description, published, updatedDate, heroImage, license, author, titleKey } =
-	Astro.props;
+const {
+	title,
+	description,
+	published,
+	updatedDate,
+	heroImage,
+	license,
+	author,
+	category: categoryValue,
+	titleKey,
+} = Astro.props;
+
+const category = categoryValue?.trim()
+	? resolveCategory(categoryValue, categoryLookup(await getCollection("posts")))
+	: null;
 ---
 
 <PageLayout {title} description={description} {titleKey}>
@@ -35,6 +50,16 @@ const { title, description, published, updatedDate, heroImage, license, author, 
 			>
 				<div class="mb-2xs flex-col flex text-secondary-700 dark:text-secondary-300 gap-2">
 					<FormattedDate date={published} />
+					{
+						category && (
+							<a
+								href={categoryHref(category.slug)}
+								class="font-mono text-fluid-xs text-primary-600 no-underline hover:underline dark:text-primary-300"
+							>
+								#{category.name}
+							</a>
+						)
+					}
 					{
 						updatedDate && (
 							<div class="italic">

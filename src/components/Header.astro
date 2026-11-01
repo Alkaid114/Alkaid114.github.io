@@ -7,7 +7,9 @@ import Translated from "./Translated.astro";
 <header
 	class="border-b border-secondary-200 dark:border-secondary-800 bg-secondary-50 dark:bg-secondary-900 px-s"
 >
-	<nav class="flex items-center justify-around">
+	<nav
+		class="mx-auto flex w-full max-w-240 flex-wrap items-center justify-center gap-x-s gap-y-3xs sm:justify-between"
+	>
 		<h2 class="m-0">
 			<a
 				href="/"
@@ -17,9 +19,16 @@ import Translated from "./Translated.astro";
 				></span></a
 			>
 		</h2>
-		<div class="flex items-center">
-			<HeaderLink href="/"><Translated name="home" /></HeaderLink>
-			<HeaderLink href="/friends"><Translated name="friendLinks" /></HeaderLink>
+		<div class="flex flex-wrap items-center justify-center gap-x-3xs">
+			<HeaderLink href="/" iconInactive="bi:archive" iconActive="bi:archive-fill"
+				><Translated name="home" /></HeaderLink
+			>
+			<HeaderLink href="/categories" iconInactive="bi:folder" iconActive="bi:folder-fill"
+				><Translated name="categories" /></HeaderLink
+			>
+			<HeaderLink href="/friends" iconInactive="bi:people" iconActive="bi:people-fill"
+				><Translated name="friendLinks" /></HeaderLink
+			>
 			<HeaderLink href="/about"><Translated name="about" /></HeaderLink>
 		</div>
 	</nav>

@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import Translated from "../../components/Translated.astro";
+import { SITE_TITLE } from "../../consts";
+import { DEFAULT_LOCALE, t } from "../../i18n/ui";
+import PageLayout from "../../layouts/PageLayout.astro";
+import { categoryHref, collectCategories, sortCategories } from "../../utils/categories";
+
+const posts = await getCollection("posts");
+const categories = sortCategories(collectCategories(posts));
+---
+
+<PageLayout
+	title={`${t(DEFAULT_LOCALE, "categories")} | ${SITE_TITLE}`}
+	titleKey="categories"
+	titleSuffix={`| ${SITE_TITLE}`}
+	description={t(DEFAULT_LOCALE, "siteDescription")}
+>
+	<h1 class="m-0 mb-l font-mono text-fluid-l text-primary-700 dark:text-primary-400">
+		<Translated name="categories" />
+	</h1>
+
+	<ul class="m-0 list-none divide-y divide-secondary-200 p-0 dark:divide-secondary-800">
+		{
+			categories.map((category) => (
+				<li>
+					<a
+						href={categoryHref(category.slug)}
+						class="group flex items-baseline justify-between gap-m py-s no-underline"
+					>
+						<span class="text-fluid-s text-secondary-950 transition-colors group-hover:text-primary-600 dark:text-secondary-50 dark:group-hover:text-primary-300">
+							{category.name}
+						</span>
+
+						<span class="shrink-0 font-mono text-fluid-xs text-secondary-500 dark:text-secondary-400">
+							{category.posts.length} <Translated name="postCount" />
+						</span>
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</PageLayout>

@@ -1,0 +1,46 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import PostList from "../../../components/PostList.astro";
+import Translated from "../../../components/Translated.astro";
+import { POSTS_PER_PAGE, SITE_TITLE } from "../../../consts";
+import { DEFAULT_LOCALE, t } from "../../../i18n/ui";
+import PageLayout from "../../../layouts/PageLayout.astro";
+import { collectCategories } from "../../../utils/categories";
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const posts = await getCollection("posts");
+
+	return collectCategories(posts).flatMap((category) =>
+		paginate(category.posts, {
+			pageSize: POSTS_PER_PAGE,
+			params: { category: category.slug },
+			props: { name: category.name },
+			format: (url) => (url === "/" ? url : `${url}/`),
+		}),
+	);
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { page, name } = Astro.props;
+---
+
+<PageLayout title={`${name} | ${SITE_TITLE}`} description={t(DEFAULT_LOCALE, "siteDescription")}>
+	<header class="mb-l flex flex-col gap-2xs">
+		<a
+			href="/categories/"
+			class="font-mono text-fluid-s text-secondary-500 no-underline transition-colors hover:text-primary-600 dark:text-secondary-400 dark:hover:text-primary-300"
+		>
+			{"<- "}<Translated name="categories" />
+		</a>
+		<h1 class="m-0 font-mono text-fluid-xl text-primary-700 dark:text-primary-400">
+			{name}
+		</h1>
+		<p class="m-0 font-mono text-fluid-s text-secondary-500 dark:text-secondary-400">
+			{page.total}
+			<Translated name="postCount" />
+		</p>
+	</header>
+
+	<PostList {page} />
+</PageLayout>

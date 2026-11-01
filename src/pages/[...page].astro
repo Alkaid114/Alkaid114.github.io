@@ -2,6 +2,8 @@
 import { getCollection } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import PostList from "../components/PostList.astro";
+import Profile from "../components/Profile.astro";
+import Translated from "../components/Translated.astro";
 import { POSTS_PER_PAGE, SITE_TITLE } from "../consts";
 import { DEFAULT_LOCALE, t } from "../i18n/ui";
 import PageLayout from "../layouts/PageLayout.astro";
@@ -22,5 +24,14 @@ const { page } = Astro.props;
 ---
 
 <PageLayout title={SITE_TITLE} description={t(DEFAULT_LOCALE, "siteDescription")}>
-	<PostList {page} />
+	<Profile />
+	<section class="mt-3xl" aria-labelledby="posts-heading">
+		<h2
+			id="posts-heading"
+			class="m-0 font-mono text-fluid-l text-primary-700 dark:text-primary-400"
+		>
+			<Translated name="posts" />
+		</h2>
+		<PostList {page} />
+	</section>
 </PageLayout>

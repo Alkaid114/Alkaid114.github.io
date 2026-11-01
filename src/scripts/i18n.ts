@@ -3,8 +3,8 @@ import {
 	isLocale,
 	LOCALE_META,
 	LOCALE_STORAGE_KEY,
-	UI,
 	type Locale,
+	UI,
 	type UIKey,
 } from "../i18n/ui";
 
