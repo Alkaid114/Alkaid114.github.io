@@ -27,6 +27,7 @@ const posts = defineCollection({
 			updatedDate: z.coerce.date().optional(),
 			heroImage: z.optional(image()),
 			draft: z.boolean().default(false),
+			tags: z.array(z.string()).optional(), // 仅用于兼容旧文章，不实现
 		}),
 });
 
