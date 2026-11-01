@@ -49,4 +49,14 @@
 		}
 	}
 	--animate-blink: blink 1s step-end infinite;
+
+	@keyframes grid-scroll {
+		from {
+			transform: translate(0, 0);
+		}
+		to {
+			transform: translate(72px, -72px);
+		}
+	}
+	--animate-grid-scroll: grid-scroll 6s linear infinite;
 }
