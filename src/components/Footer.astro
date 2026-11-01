@@ -1,7 +1,11 @@
 ---
 import { Icon } from "astro-icon/components";
+import { getLocale, t } from "../i18n/ui";
+import { NICKNAME } from "../consts";
 
 const today = new Date();
+const locale = getLocale(Astro.url.pathname);
+const linkClass = "text-primary-600 dark:text-primary-300 hover:underline mx-2 whitespace-nowrap";
 ---
 
 <footer
@@ -9,45 +13,49 @@ const today = new Date();
 >
 	<div class="flex items-center justify-center gap-1 mb-2">
 		<Icon name="fa6-regular:copyright" class="w-4 h-4" />
-		<span>{today.getFullYear()} Alkaid.</span>
+		<span>{today.getFullYear()} {NICKNAME}.</span>
+		<a
+			href="/rss.xml"
+			target="_blank"
+			rel="noopener noreferrer"
+			class={`${linkClass} flex items-center`}
+		>
+			<Icon name="bi:rss-fill" class="size-6 inline-block" />
+			<span class="ml-1">RSS</span>
+		</a>
 	</div>
 
 	<p class="leading-relaxed max-w-prose mx-auto">
-		Code licensed under
+		{t("en", "codeLicense")}
 		<a
 			href="https://opensource.org/licenses/Apache-2.0"
 			target="_blank"
 			rel="noopener noreferrer"
-			class="text-primary-600 dark:text-primary-300 hover:underline mx-2 whitespace-nowrap"
+			class={linkClass}>Apache License 2.0</a
 		>
-			Apache License 2.0
-		</a>
-		, content licensed under
+	</p>
+	<p class="leading-relaxed max-w-prose mx-auto">
+		{t("en", "contentLicense")}
 		<a
 			href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
 			target="_blank"
 			rel="noopener noreferrer"
-			class="text-primary-600 dark:text-primary-300 hover:underline mx-2 whitespace-nowrap"
+			class={linkClass}>CC BY-NC-ND 4.0</a
 		>
-			CC BY-NC-ND 4.0
-		</a>
-		except where otherwise noted.
 	</p>
+	<p class="leading-relaxed max-w-prose mx-auto">{t("en", "licenseNote")}</p>
 
-	<p class="leading-relaxed">
-		Built with
-		<a
-			href="https://astro.build/"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="text-primary-600 dark:text-primary-300 hover:underline mx-2">Astro</a
+	<p class="leading-relaxed mt-s">
+		{t("en", "builtWith")}
+		<a href="https://astro.build/" target="_blank" rel="noopener noreferrer" class={linkClass}
+			>Astro</a
 		>
-		and
+		{t("en", "conjunction")}
 		<a
 			href="https://tailwindcss.com/"
 			target="_blank"
 			rel="noopener noreferrer"
-			class="text-primary-600 dark:text-primary-300 hover:underline mx-2">Tailwind CSS</a
-		>.
+			class={linkClass}>Tailwind CSS</a
+		>
 	</p>
 </footer>

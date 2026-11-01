@@ -11,14 +11,18 @@ const posts = defineCollection({
 			description: z.string(),
 			// Transform string to Date object
 			published: z.coerce.date(),
-			license: z.object({
-				name: z.string(),
-				url: z.url().optional(), 
-			}).optional(),
-			author: z.object({
-				name: z.string(),
-				url: z.url().optional(),
-			}).optional(),
+			license: z
+				.object({
+					name: z.string(),
+					url: z.url().optional(),
+				})
+				.optional(),
+			author: z
+				.object({
+					name: z.string(),
+					url: z.url().optional(),
+				})
+				.optional(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: z.optional(image()),
 			draft: z.boolean().default(false),

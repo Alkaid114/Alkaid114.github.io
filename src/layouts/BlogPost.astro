@@ -1,13 +1,15 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import FormattedDate from "../components/FormattedDate.astro";
-import PageLayout from "./PageLayout.astro";
 import { Icon } from "astro-icon/components";
+import FormattedDate from "../components/FormattedDate.astro";
+import { getLocale, t } from "../i18n/ui";
+import PageLayout from "./PageLayout.astro";
 
 type Props = CollectionEntry<"posts">["data"];
 
 const { title, description, published, updatedDate, heroImage, license, author } = Astro.props;
+const locale = getLocale(Astro.url.pathname);
 ---
 
 <PageLayout title={title} description={description}>
@@ -34,7 +36,7 @@ const { title, description, published, updatedDate, heroImage, license, author }
 					{
 						updatedDate && (
 							<div class="italic">
-								Last updated on <FormattedDate date={updatedDate} />
+								{t(locale, "lastUpdated")} <FormattedDate date={updatedDate} />
 							</div>
 						)
 					}
@@ -48,7 +50,7 @@ const { title, description, published, updatedDate, heroImage, license, author }
 									/>
 									<div class="flex flex-col flex-1 text-left ml-4">
 										<p>
-											Caution! This post has specific license terms:{" "}
+											{t(locale, "licenseCaution")}{" "}
 											{license.url ? (
 												<a href={license.url} class="underline">
 													{license.name}
@@ -60,9 +62,7 @@ const { title, description, published, updatedDate, heroImage, license, author }
 											)}
 										</p>
 										<p class="text-fluid-xs font-normal">
-											{license.url
-												? "Please ensure you comply with the license terms when using or distributing this content."
-												: "Please contact the author for permission before republishing this content."}
+											{t(locale, license.url ? "licenseWithUrl" : "licenseNoUrl")}
 										</p>
 									</div>
 								</div>

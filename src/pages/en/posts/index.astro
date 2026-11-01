@@ -1,0 +1,18 @@
+---
+import { getCollection } from "astro:content";
+import PostGrid from "../../../components/PostGrid.astro";
+import { SITE_TITLE } from "../../../consts";
+import { t } from "../../../i18n/ui";
+import PageLayout from "../../../layouts/PageLayout.astro";
+
+const posts = (await getCollection("posts"))
+	.filter((post) => !post.data.draft)
+	.sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
+---
+
+<PageLayout title={`${t("en", "posts")} | ${SITE_TITLE}`} description={t("en", "siteDescription")}>
+	<h1 class="m-0 mb-l font-mono text-fluid-2xl text-primary-700 dark:text-primary-400">
+		{t("en", "posts")}
+	</h1>
+	<PostGrid {posts} locale="en" />
+</PageLayout>

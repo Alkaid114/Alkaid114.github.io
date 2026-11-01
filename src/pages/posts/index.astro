@@ -1,69 +1,18 @@
 ---
-import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import BaseHead from "../../components/BaseHead.astro";
-import Footer from "../../components/Footer.astro";
-import FormattedDate from "../../components/FormattedDate.astro";
-import Header from "../../components/Header.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../../consts";
+import PostGrid from "../../components/PostGrid.astro";
+import { SITE_TITLE } from "../../consts";
+import { t } from "../../i18n/ui";
+import PageLayout from "../../layouts/PageLayout.astro";
 
-const posts = (await getCollection("posts")).sort(
-	(a, b) => b.data.published.valueOf() - a.data.published.valueOf(),
-);
+const posts = (await getCollection("posts"))
+	.filter((post) => !post.data.draft)
+	.sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
 ---
 
-<!doctype html>
-<html lang="en" class="scheme-light-dark">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body
-		class="flex min-h-dvh flex-col bg-secondary-50 dark:bg-secondary-950 bg-linear-to-b from-secondary-100/50 dark:from-secondary-800/50 to-secondary-50 dark:to-secondary-950 bg-no-repeat bg-size-[100%_600px] font-sans text-fluid-s wrap-break-word text-secondary-950 dark:text-secondary-50"
-	>
-		<Header />
-		<main class="mx-auto w-full max-w-240 flex-1 px-s py-xl">
-			<section>
-				<ul class="m-0 grid list-none grid-cols-1 gap-l p-0 md:grid-cols-2">
-					{
-						posts.map((post, index) => (
-							<li
-								class:list={[
-									index === 0
-										? "text-center md:col-span-2"
-										: "max-md:text-center",
-								]}
-							>
-								<a
-									href={`/posts/${post.id}/`}
-									class="group block no-underline transition duration-200"
-								>
-									{post.data.heroImage && (
-										<Image
-											class="mb-2xs w-full rounded-xl transition duration-200 group-hover:shadow-box"
-											width={720}
-											height={360}
-											src={post.data.heroImage}
-											alt=""
-										/>
-									)}
-									<h4
-										class:list={[
-											"m-0 leading-none text-secondary-950 dark:text-secondary-50 transition-colors group-hover:text-primary-600 dark:group-hover:text-primary-300",
-											index === 0 ? "text-fluid-2xl" : "text-fluid-l",
-										]}
-									>
-										{post.data.title}
-									</h4>
-									<p class="m-0 text-fluid-xs text-secondary-700 transition-colors group-hover:text-primary-600 dark:text-secondary-300 dark:group-hover:text-primary-300">
-										<FormattedDate date={post.data.published} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
-</html>
+<PageLayout title={`${t("zh", "posts")} | ${SITE_TITLE}`} description={t("zh", "siteDescription")}>
+	<h1 class="m-0 mb-l font-mono text-fluid-2xl text-primary-700 dark:text-primary-400">
+		{t("zh", "posts")}
+	</h1>
+	<PostGrid {posts} locale="zh" />
+</PageLayout>

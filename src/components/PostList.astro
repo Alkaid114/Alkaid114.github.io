@@ -1,0 +1,116 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { Page } from "astro";
+import { type Locale, localePath, t } from "../i18n/ui";
+import { excerptFromBody } from "../utils/excerpt";
+import FormattedDate from "./FormattedDate.astro";
+import Profile from "./Profile.astro";
+
+interface Props {
+	page: Page<CollectionEntry<"posts">>;
+	locale: Locale;
+}
+
+const { page, locale } = Astro.props;
+
+const posts = page.data.map((post) => ({
+	...post,
+	excerpt: excerptFromBody(post.body) || post.data.description,
+}));
+
+const pageHref = (n: number) => localePath(n === 1 ? "/" : `/${n}/`, locale);
+const paginationLinkClass =
+	"inline-flex min-w-8 items-center justify-center rounded-md px-2xs py-3xs no-underline transition-colors";
+const paginationIdleClass =
+	"text-secondary-700 hover:bg-secondary-200 hover:text-secondary-950 dark:text-secondary-300 dark:hover:bg-secondary-800 dark:hover:text-secondary-50";
+const paginationCurrentClass =
+	"bg-primary-600 text-secondary-50 dark:bg-primary-500 dark:text-secondary-950";
+const paginationDisabledClass =
+	"cursor-not-allowed text-secondary-400 opacity-60 dark:text-secondary-600";
+---
+
+<Profile />
+
+<section class="mt-3xl" aria-labelledby="posts-heading">
+	<h2 id="posts-heading" class="m-0 font-mono text-fluid-l text-primary-700 dark:text-primary-400">
+		{t(locale, "posts")}
+	</h2>
+	<ul class="m-0 mt-s list-none divide-y divide-secondary-200 p-0 dark:divide-secondary-800">
+		{
+			posts.map((post) => (
+				<li>
+					<a
+						href={localePath(`/posts/${post.id}/`, locale)}
+						class="group flex flex-col gap-3xs py-s no-underline sm:flex-row sm:items-baseline sm:justify-between sm:gap-m"
+					>
+						<span class="flex min-w-0 flex-col gap-3xs">
+							<span class="text-fluid-m text-secondary-950 transition-colors group-hover:text-primary-600 dark:text-secondary-50 dark:group-hover:text-primary-300">
+								{post.data.title}
+							</span>
+							<span class="line-clamp-3 text-fluid-xs text-secondary-600 dark:text-secondary-400">
+								{post.excerpt}
+							</span>
+						</span>
+						<span class="shrink-0 text-fluid-xs text-secondary-500 dark:text-secondary-400 font-mono">
+							<FormattedDate date={post.data.published} />
+						</span>
+					</a>
+				</li>
+			))
+		}
+	</ul>
+
+	{
+		page.lastPage > 1 && (
+			<nav
+				class="mt-l flex items-center justify-center gap-3xs text-fluid-xs"
+				aria-label={t(locale, "pagination")}
+			>
+				{page.url.prev ? (
+					<a
+						rel="prev"
+						href={page.url.prev}
+						class:list={[paginationLinkClass, paginationIdleClass]}
+					>
+						{t(locale, "previous")}
+					</a>
+				) : (
+					<span
+						class:list={[paginationLinkClass, paginationDisabledClass]}
+						aria-disabled="true"
+					>
+						{t(locale, "previous")}
+					</span>
+				)}
+				{Array.from({ length: page.lastPage }, (_, i) => i + 1).map((n) => (
+					<a
+						href={pageHref(n)}
+						aria-current={n === page.currentPage ? "page" : undefined}
+						class:list={[
+							paginationLinkClass,
+							n === page.currentPage ? paginationCurrentClass : paginationIdleClass,
+						]}
+					>
+						{n}
+					</a>
+				))}
+				{page.url.next ? (
+					<a
+						rel="next"
+						href={page.url.next}
+						class:list={[paginationLinkClass, paginationIdleClass]}
+					>
+						{t(locale, "next")}
+					</a>
+				) : (
+					<span
+						class:list={[paginationLinkClass, paginationDisabledClass]}
+						aria-disabled="true"
+					>
+						{t(locale, "next")}
+					</span>
+				)}
+			</nav>
+		)
+	}
+</section>
