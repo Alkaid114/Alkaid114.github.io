@@ -9,6 +9,7 @@ import { NICKNAME } from "../consts";
 import type { UIKey } from "../i18n/ui";
 import { categoryHref, categoryLookup, resolveCategory } from "../utils/categories";
 import PageLayout from "./PageLayout.astro";
+import "remark-github-blockquote-alert/alert.css";
 
 type Props = CollectionEntry<"posts">["data"] & { titleKey?: UIKey };
 
@@ -91,7 +92,11 @@ const category = categoryValue?.trim()
 											)}
 										</p>
 										<p class="text-fluid-xs font-normal">
-											<Translated name={license.url ? "licenseWithUrl" : "licenseNoUrl"} />
+											<Translated
+												name={
+													license.url ? "licenseWithUrl" : "licenseNoUrl"
+												}
+											/>
 										</p>
 									</div>
 								</div>

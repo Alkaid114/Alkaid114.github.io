@@ -2,7 +2,7 @@
 
 import { existsSync, watch } from "node:fs";
 import path from "node:path";
-
+import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
@@ -10,11 +10,18 @@ import type { AstroUserConfig } from "astro";
 import { defineConfig, fontProviders } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
+import { remarkAlert } from "remark-github-blockquote-alert";
 
 // https://astro.build/config
 export default defineConfig({
 	site: "https://example.com",
-	integrations: [mdx(), sitemap(), icon(), expressiveCode()],
+	integrations: [expressiveCode(), mdx(), sitemap(), icon()],
+
+	markdown: {
+		processor: unified({
+			remarkPlugins: [remarkAlert],
+		}),
+	},
 
 	fonts: [
 		{
