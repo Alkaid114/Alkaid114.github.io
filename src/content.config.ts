@@ -16,6 +16,7 @@ const posts = defineCollection({
 				.object({
 					name: z.string(),
 					url: z.url().optional(),
+					description: z.string().optional(),
 				})
 				.optional(),
 			author: z

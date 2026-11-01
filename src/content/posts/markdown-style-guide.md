@@ -4,7 +4,9 @@ description: 'Here is a sample of some basic Markdown syntax that can be used wh
 published: '2025-9-17 10:33:00'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 license:
-  name: 'All rights reserved'
+  name: CC BY-NC-SA 4.0
+  url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+  description: 本文转载自原作者博客，并依据CC BY-NC-SA 4.0协议共享
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
