@@ -10,7 +10,7 @@ import { DEFAULT_LOCALE, LOCALE_META, LOCALE_STORAGE_KEY, t, type UIKey } from "
 
 interface Props {
 	title: string;
-	description: string;
+	description?: string;
 	image?: ImageMetadata;
 	titleKey?: UIKey;
 	titleSuffix?: string;
@@ -26,28 +26,28 @@ const titleEn = withSuffix(titleKey ? t("en", titleKey) : title);
 ---
 
 <!-- Global Metadata -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" href="/favicon.ico">
-<link rel="sitemap" href="/sitemap-index.xml">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />
+<link rel="sitemap" href="/sitemap-index.xml" />
 <link
 	rel="alternate"
 	type="application/rss+xml"
 	title={SITE_TITLE}
 	href={new URL("rss.xml", Astro.site)}
->
-<meta name="generator" content={Astro.generator}>
+/>
+<meta name="generator" content={Astro.generator} />
 
 <Font cssVariable="--font-inter" preload />
 <Font cssVariable="--font-jetbrains-mono" />
 
 <!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL}>
+<link rel="canonical" href={canonicalURL} />
 
 <!-- Primary Meta Tags -->
 <title data-title-zh={titleZh} data-title-en={titleEn}>{titleZh}</title>
-<meta name="description" content={description}>
+<meta name="description" content={description} />
 
 <script
 	is:inline
@@ -70,11 +70,11 @@ const titleEn = withSuffix(titleKey ? t("en", titleKey) : title);
 </script>
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content={Astro.url}>
-<meta property="og:title" content={title}>
-<meta property="og:description" content={description}>
-<meta property="og:image" content={new URL(image.src, Astro.url)}>
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={new URL(image.src, Astro.url)} />
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary_large_image" />

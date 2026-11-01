@@ -8,7 +8,7 @@ const posts = defineCollection({
 	schema: ({ image }) =>
 		z.object({
 			title: z.string(),
-			description: z.string(),
+			description: z.string().optional(),
 			category: z.string().trim().min(1).optional(),
 			// Transform string to Date object
 			published: z.coerce.date(),
