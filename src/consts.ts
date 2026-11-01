@@ -22,3 +22,5 @@ export const SOCIAL_LINKS: SocialLink[] = [
 ];
 
 export const POSTS_PER_PAGE: number = 8;
+
+export const GIT_REPO_COMMIT_HASH_URL = "https://github.com/alkaid114/blog/tree/{}";

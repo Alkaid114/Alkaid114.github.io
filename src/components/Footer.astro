@@ -1,17 +1,27 @@
 ---
 import { Icon } from "astro-icon/components";
 import { getLocale, t } from "../i18n/ui";
-import { NICKNAME } from "../consts";
+import { NICKNAME, GIT_REPO_COMMIT_HASH_URL } from "../consts";
+import { execSync } from "node:child_process";
 
 const today = new Date();
 const locale = getLocale(Astro.url.pathname);
 const linkClass = "text-primary-600 dark:text-primary-300 hover:underline mx-2 whitespace-nowrap";
+
+const fullHash =
+	process.env.COMMIT_HASH || execSync("git rev-parse HEAD").toString().trim() || "unknown";
+const shortHash = fullHash.substring(0, 7);
+const commitUrl = GIT_REPO_COMMIT_HASH_URL.replace("{}", fullHash);
 ---
 
 <footer
 	class="px-s pt-l pb-3xl text-center text-secondary-700 dark:text-secondary-300 font-mono text-m"
 >
 	<div class="flex items-center justify-center gap-1 mb-2">
+		<span>Source</span>
+		<a href={commitUrl} target="_blank" rel="noopener noreferrer" class={linkClass}>
+			{shortHash}</a
+		>
 		<Icon name="fa6-regular:copyright" class="w-4 h-4" />
 		<span>{today.getFullYear()} {NICKNAME}.</span>
 		<a
