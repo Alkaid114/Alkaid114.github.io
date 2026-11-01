@@ -8,12 +8,13 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import type { AstroUserConfig } from "astro";
 import { defineConfig, fontProviders } from "astro/config";
+import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
 	site: "https://example.com",
-	integrations: [mdx(), sitemap(), icon()],
+	integrations: [mdx(), sitemap(), icon(), expressiveCode()],
 
 	fonts: [
 		{
