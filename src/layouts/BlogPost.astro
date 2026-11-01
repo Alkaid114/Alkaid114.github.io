@@ -3,10 +3,11 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../components/FormattedDate.astro";
 import PageLayout from "./PageLayout.astro";
+import { Icon } from "astro-icon/components";
 
 type Props = CollectionEntry<"posts">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, published, updatedDate, heroImage, license, author } = Astro.props;
 ---
 
 <PageLayout title={title} description={description}>
@@ -24,16 +25,47 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				)
 			}
 		</div>
-		<div class="mx-auto w-full max-w-180 px-s py-s">
+		<div class="mx-auto w-full max-w-220 px-s py-s">
 			<div
 				class="mb-s border-b border-secondary-200 py-s text-center leading-none dark:border-secondary-800"
 			>
 				<div class="mb-2xs text-secondary-700 dark:text-secondary-300">
-					<FormattedDate date={pubDate} />
+					<FormattedDate date={published} />
 					{
 						updatedDate && (
 							<div class="italic">
 								Last updated on <FormattedDate date={updatedDate} />
+							</div>
+						)
+					}
+					{
+						license && (
+							<div class="flex flex-col items-center justify-center bg-[#D37D43] w-full min-h-24 mt-s mb-s text-fluid-s text-secondary-900 font-sans font-extrabold">
+								<div class="flex items-center w-full pt-2 pb-2">
+									<Icon
+										name="carbon:warning-hex-filled"
+										class="shrink-0 ml-m size-12"
+									/>
+									<div class="flex flex-col flex-1 text-left ml-4">
+										<p>
+											Caution! This post has specific license terms:{" "}
+											{license.url ? (
+												<a href={license.url} class="underline">
+													{license.name}
+												</a>
+											) : (
+												<span class="underline decoration-dashed decoration-1 underline-offset-4">
+													{license.name}
+												</span>
+											)}
+										</p>
+										<p class="text-fluid-xs font-normal">
+											{license.url
+												? "Please ensure you comply with the license terms when using or distributing this content."
+												: "Please contact the author for permission before republishing this content."}
+										</p>
+									</div>
+								</div>
 							</div>
 						)
 					}

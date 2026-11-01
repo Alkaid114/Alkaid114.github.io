@@ -25,6 +25,7 @@
 		"esbuild": true
 	},
 	"devDependencies": {
+		"@iconify-json/carbon": "^1.2.29",
 		"@iconify-json/fa6-brands": "^1.2.6",
 		"@iconify-json/fa6-regular": "^1.2.4",
 		"@iconify-json/lucide": "^1.2.149",

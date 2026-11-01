@@ -9,9 +9,9 @@ import { excerptFromBody } from "../utils/excerpt";
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const pageSize = POSTS_PER_PAGE;
-	const posts = (await getCollection("posts")).sort(
-		(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-	);
+	const posts = (await getCollection("posts"))
+		.filter((post) => !post.data.draft)
+		.sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
 	return paginate(posts, {
 		pageSize,
 		format: (url) => (url === "/" ? url : `${url}/`),
@@ -63,8 +63,8 @@ const paginationDisabledClass =
 									{post.data.description || post.excerpt}
 								</span>
 							</span>
-							<span class="shrink-0 text-fluid-xs text-secondary-500 dark:text-secondary-400">
-								<FormattedDate date={post.data.pubDate} />
+							<span class="shrink-0 text-fluid-xs text-secondary-500 dark:text-secondary-400 font-mono">
+								<FormattedDate date={post.data.published} />
 							</span>
 						</a>
 					</li>
@@ -79,7 +79,11 @@ const paginationDisabledClass =
 					aria-label="Pagination"
 				>
 					{page.url.prev ? (
-						<a href={page.url.prev} rel="prev" class:list={[paginationLinkClass, paginationIdleClass]}>
+						<a
+							href={page.url.prev}
+							rel="prev"
+							class:list={[paginationLinkClass, paginationIdleClass]}
+						>
 							Previous
 						</a>
 					) : (
@@ -96,14 +100,20 @@ const paginationDisabledClass =
 							aria-current={n === page.currentPage ? "page" : undefined}
 							class:list={[
 								paginationLinkClass,
-								n === page.currentPage ? paginationCurrentClass : paginationIdleClass,
+								n === page.currentPage
+									? paginationCurrentClass
+									: paginationIdleClass,
 							]}
 						>
 							{n}
 						</a>
 					))}
 					{page.url.next ? (
-						<a href={page.url.next} rel="next" class:list={[paginationLinkClass, paginationIdleClass]}>
+						<a
+							href={page.url.next}
+							rel="next"
+							class:list={[paginationLinkClass, paginationIdleClass]}
+						>
 							Next
 						</a>
 					) : (
