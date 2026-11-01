@@ -1,5 +1,6 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import FloatingActions from "../components/FloatingActions.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import type { UIKey } from "../i18n/ui";
@@ -57,6 +58,7 @@ const { title, description, titleKey, titleSuffix } = Astro.props;
 			</div>
 		</main>
 		<Footer />
+		<FloatingActions />
 		<script>
 			import "../scripts/i18n";
 		</script>

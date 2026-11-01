@@ -1,0 +1,115 @@
+---
+import { Icon } from "astro-icon/components";
+import { DEFAULT_LOCALE, LOCALES, LOCALE_META, t } from "../i18n/ui";
+
+const buttonClass =
+	"inline-flex size-9 cursor-pointer items-center justify-center rounded-xs border border-secondary-300 bg-secondary-50/90 font-mono text-fluid-xs text-secondary-600 transition-colors hover:border-primary-600 hover:text-primary-600 dark:border-secondary-700 dark:bg-secondary-900/90 dark:text-secondary-300 dark:hover:border-primary-300 dark:hover:text-primary-300";
+---
+
+<div
+	data-floating
+	data-open="false"
+	class="group fixed right-m bottom-m z-50 flex items-center gap-3xs"
+>
+	<div
+		id="floating-menu"
+		data-floating-menu
+		data-locale-aria-label="language"
+		role="group"
+		aria-label={t(DEFAULT_LOCALE, "language")}
+		inert
+		class="absolute right-full top-1/2 mr-2xs flex -translate-y-1/2 translate-x-1 items-center gap-3xs opacity-0 pointer-events-none transition duration-150 motion-reduce:transition-none group-data-[open=true]:translate-x-0 group-data-[open=true]:opacity-100 group-data-[open=true]:pointer-events-auto"
+	>
+		{
+			LOCALES.map((code) => (
+				<button
+					type="button"
+					data-locale-choice={code}
+					aria-pressed={code === DEFAULT_LOCALE}
+					aria-label={LOCALE_META[code].label}
+					lang={LOCALE_META[code].htmlLang}
+					class={buttonClass}
+				>
+					{LOCALE_META[code].short}
+				</button>
+			))
+		}
+	</div>
+
+	<button
+		type="button"
+		data-back-to-top
+		data-locale-aria-label="backToTop"
+		aria-label={t(DEFAULT_LOCALE, "backToTop")}
+		hidden
+		class={buttonClass}
+	>
+		<Icon name="lucide:arrow-up" class="size-4" />
+	</button>
+
+	<button
+		type="button"
+		data-floating-toggle
+		data-locale-aria-label="language"
+		aria-label={t(DEFAULT_LOCALE, "language")}
+		aria-expanded="false"
+		aria-controls="floating-menu"
+		class={buttonClass}
+	>
+		<Icon name="lucide:languages" class="size-4" />
+	</button>
+</div>
+
+<script>
+	const container = document.querySelector<HTMLElement>("[data-floating]");
+	const toggle = container?.querySelector<HTMLButtonElement>("[data-floating-toggle]");
+	const menu = container?.querySelector<HTMLElement>("[data-floating-menu]");
+	const top = container?.querySelector<HTMLButtonElement>("[data-back-to-top]");
+
+	if (container && toggle && menu) {
+		const setOpen = (open: boolean) => {
+			container.dataset.open = String(open);
+			toggle.setAttribute("aria-expanded", String(open));
+			menu.inert = !open;
+		};
+
+		setOpen(false);
+
+		toggle.addEventListener("click", () => {
+			setOpen(container.dataset.open !== "true");
+		});
+
+		document.addEventListener("click", (event) => {
+			if (container.dataset.open !== "true") return;
+			if (!(event.target instanceof Node) || container.contains(event.target)) return;
+			setOpen(false);
+		});
+
+		document.addEventListener("keydown", (event) => {
+			if (event.key !== "Escape" || container.dataset.open !== "true") return;
+			setOpen(false);
+			toggle.focus();
+		});
+
+		menu.addEventListener("click", (event) => {
+			if (!(event.target instanceof Element)) return;
+			if (!event.target.closest("[data-locale-choice]")) return;
+			toggle.focus();
+			setOpen(false);
+		});
+	}
+
+	if (top) {
+		const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+		const update = () => {
+			top.hidden = window.scrollY <= 400;
+		};
+
+		update();
+		window.addEventListener("scroll", update, { passive: true });
+
+		top.addEventListener("click", () => {
+			window.scrollTo({ top: 0, behavior: reduceMotion.matches ? "auto" : "smooth" });
+		});
+	}
+</script>

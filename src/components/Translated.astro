@@ -1,0 +1,13 @@
+---
+import { t, type UIKey } from "../i18n/ui";
+
+interface Props {
+	name: UIKey;
+}
+
+const { name } = Astro.props;
+---
+
+<span data-locale-text="zh" lang="zh-CN">{t("zh", name)}</span><span
+	data-locale-text="en"
+	lang="en">{t("en", name)}</span>

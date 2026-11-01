@@ -1,7 +1,7 @@
 ---
 import { NICKNAME } from "../consts";
-import { t } from "../i18n/ui";
 import HeaderLink from "./HeaderLink.astro";
+import Translated from "./Translated.astro";
 ---
 
 <header
@@ -18,16 +18,8 @@ import HeaderLink from "./HeaderLink.astro";
 			>
 		</h2>
 		<div class="flex items-center">
-			<HeaderLink href="/" data-i18n="home">{t("zh", "home")}</HeaderLink>
-			<HeaderLink href="/about" data-i18n="about">{t("zh", "about")}</HeaderLink>
-			<button
-				type="button"
-				data-locale-toggle
-				aria-label={t("zh", "switchLanguageLabel")}
-				class="mx-1 inline-flex cursor-pointer items-center rounded border border-secondary-300 px-2xs py-3xs font-mono text-fluid-xs text-secondary-700 transition-colors hover:border-primary-600 hover:text-primary-600 dark:border-secondary-700 dark:text-secondary-300 dark:hover:border-primary-300 dark:hover:text-primary-300"
-			>
-				{t("zh", "switchLanguage")}
-			</button>
+			<HeaderLink href="/"><Translated name="home" /></HeaderLink>
+			<HeaderLink href="/about"><Translated name="about" /></HeaderLink>
 		</div>
 	</nav>
 </header>

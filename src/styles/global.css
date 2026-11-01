@@ -60,3 +60,16 @@
 	}
 	--animate-grid-scroll: grid-scroll 6s linear infinite;
 }
+
+html:not([data-locale]) [data-locale-text="en"],
+html[data-locale="zh"] [data-locale-text="en"],
+html[data-locale="en"] [data-locale-text="zh"] {
+	display: none;
+}
+
+html:not([data-locale]) [data-locale-choice="zh"],
+html[data-locale="zh"] [data-locale-choice="zh"],
+html[data-locale="en"] [data-locale-choice="en"] {
+	background-color: light-dark(var(--color-primary-600), var(--color-primary-500));
+	color: light-dark(var(--color-secondary-50), var(--color-secondary-950));
+}

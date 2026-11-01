@@ -1,10 +1,10 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import type { Page } from "astro";
-import { t } from "../i18n/ui";
 import { excerptFromBody } from "../utils/excerpt";
 import FormattedDate from "./FormattedDate.astro";
 import Profile from "./Profile.astro";
+import Translated from "./Translated.astro";
 
 interface Props {
 	page: Page<CollectionEntry<"posts">>;
@@ -33,10 +33,9 @@ const paginationDisabledClass =
 <section class="mt-3xl" aria-labelledby="posts-heading">
 	<h2
 		id="posts-heading"
-		data-i18n="posts"
 		class="m-0 font-mono text-fluid-l text-primary-700 dark:text-primary-400"
 	>
-		{t("zh", "posts")}
+		<Translated name="posts" />
 	</h2>
 	<ul class="m-0 mt-s list-none divide-y divide-secondary-200 p-0 dark:divide-secondary-800">
 		{
@@ -66,8 +65,8 @@ const paginationDisabledClass =
 	{
 		page.lastPage > 1 && (
 			<nav
-				data-i18n-aria-label="pagination"
-				aria-label={t("zh", "pagination")}
+				data-locale-aria-label="pagination"
+				aria-label="Pagination"
 				class="mt-l flex items-center justify-center gap-3xs text-fluid-xs"
 			>
 				{page.url.prev ? (
@@ -76,14 +75,14 @@ const paginationDisabledClass =
 						href={page.url.prev}
 						class:list={[paginationLinkClass, paginationIdleClass]}
 					>
-						<span data-i18n="previous">{t("zh", "previous")}</span>
+						<Translated name="previous" />
 					</a>
 				) : (
 					<span
 						class:list={[paginationLinkClass, paginationDisabledClass]}
 						aria-disabled="true"
 					>
-						<span data-i18n="previous">{t("zh", "previous")}</span>
+						<Translated name="previous" />
 					</span>
 				)}
 				{Array.from({ length: page.lastPage }, (_, i) => i + 1).map((n) => (
@@ -104,14 +103,14 @@ const paginationDisabledClass =
 						href={page.url.next}
 						class:list={[paginationLinkClass, paginationIdleClass]}
 					>
-						<span data-i18n="next">{t("zh", "next")}</span>
+						<Translated name="next" />
 					</a>
 				) : (
 					<span
 						class:list={[paginationLinkClass, paginationDisabledClass]}
 						aria-disabled="true"
 					>
-						<span data-i18n="next">{t("zh", "next")}</span>
+						<Translated name="next" />
 					</span>
 				)}
 			</nav>

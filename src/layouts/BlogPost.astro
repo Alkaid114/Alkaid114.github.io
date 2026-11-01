@@ -3,8 +3,10 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
 import FormattedDate from "../components/FormattedDate.astro";
-import { t, type UIKey } from "../i18n/ui";
+import Translated from "../components/Translated.astro";
+import type { UIKey } from "../i18n/ui";
 import PageLayout from "./PageLayout.astro";
+import { NICKNAME } from "../consts";
 
 type Props = CollectionEntry<"posts">["data"] & { titleKey?: UIKey };
 
@@ -31,19 +33,20 @@ const { title, description, published, updatedDate, heroImage, license, author, 
 			<div
 				class="mb-s border-b border-secondary-200 py-s text-center leading-none dark:border-secondary-800"
 			>
-				<div class="mb-2xs text-secondary-700 dark:text-secondary-300">
+				<div class="mb-2xs flex-col flex text-secondary-700 dark:text-secondary-300 gap-2">
 					<FormattedDate date={published} />
 					{
 						updatedDate && (
 							<div class="italic">
-								<span data-i18n="lastUpdated">{t("zh", "lastUpdated")}</span>{" "}
+								<Translated name="lastUpdated" />{" "}
 								<FormattedDate date={updatedDate} />
 							</div>
 						)
 					}
+					<span>{author || NICKNAME}</span>
 					{
 						license && (
-							<div class="flex flex-col items-center justify-center bg-[#D37D43] w-full min-h-24 mt-s mb-s text-fluid-s text-secondary-900 font-sans font-extrabold">
+							<div class="flex flex-col items-center justify-center bg-[#D37D43] w-full min-h-24 mb-s text-fluid-s text-secondary-900 font-sans font-extrabold">
 								<div class="flex items-center w-full pt-2 pb-2">
 									<Icon
 										name="carbon:warning-hex-filled"
@@ -51,9 +54,7 @@ const { title, description, published, updatedDate, heroImage, license, author, 
 									/>
 									<div class="flex flex-col flex-1 text-left ml-4">
 										<p>
-											<span data-i18n="licenseCaution">
-												{t("zh", "licenseCaution")}
-											</span>{" "}
+											<Translated name="licenseCaution" />{" "}
 											{license.url ? (
 												<a href={license.url} class="underline">
 													{license.name}
@@ -64,16 +65,8 @@ const { title, description, published, updatedDate, heroImage, license, author, 
 												</span>
 											)}
 										</p>
-										<p
-											class="text-fluid-xs font-normal"
-											data-i18n={
-												license.url ? "licenseWithUrl" : "licenseNoUrl"
-											}
-										>
-											{t(
-												"zh",
-												license.url ? "licenseWithUrl" : "licenseNoUrl",
-											)}
+										<p class="text-fluid-xs font-normal">
+											<Translated name={license.url ? "licenseWithUrl" : "licenseNoUrl"} />
 										</p>
 									</div>
 								</div>
@@ -81,11 +74,8 @@ const { title, description, published, updatedDate, heroImage, license, author, 
 						)
 					}
 				</div>
-				<h1
-					data-i18n={titleKey}
-					class="m-0 text-fluid-3xl text-secondary-950 dark:text-secondary-50"
-				>
-					{title}
+				<h1 class="m-0 text-fluid-3xl text-secondary-950 dark:text-secondary-50">
+					{titleKey ? <Translated name={titleKey} /> : title}
 				</h1>
 			</div>
 			<div

@@ -2,80 +2,57 @@ import {
 	DEFAULT_LOCALE,
 	isLocale,
 	LOCALE_META,
-	type Locale,
-	nextLocale,
+	LOCALE_STORAGE_KEY,
 	UI,
+	type Locale,
 	type UIKey,
 } from "../i18n/ui";
 
-const STORAGE_KEY = "locale";
+const root = document.documentElement;
 
-function storedLocale(): Locale {
-	try {
-		const value = localStorage.getItem(STORAGE_KEY);
-		return isLocale(value) ? value : DEFAULT_LOCALE;
-	} catch {
-		return DEFAULT_LOCALE;
-	}
+function currentLocale(): Locale {
+	const value = root.dataset.locale;
+	return isLocale(value) ? value : DEFAULT_LOCALE;
 }
 
-function translate(locale: Locale) {
-	for (const el of document.querySelectorAll<HTMLElement>("[data-i18n]")) {
-		const key = el.dataset.i18n as UIKey;
-		if (key in UI[locale]) el.textContent = UI[locale][key];
+function apply(locale: Locale) {
+	root.dataset.locale = locale;
+	root.lang = LOCALE_META[locale].htmlLang;
+
+	for (const el of document.querySelectorAll<HTMLElement>("[data-locale-choice]")) {
+		el.setAttribute("aria-pressed", String(el.dataset.localeChoice === locale));
 	}
 
-	for (const el of document.querySelectorAll<HTMLElement>("[data-i18n-aria-label]")) {
-		const key = el.dataset.i18nAriaLabel as UIKey;
+	for (const el of document.querySelectorAll<HTMLElement>("[data-locale-aria-label]")) {
+		const key = el.dataset.localeAriaLabel as UIKey;
 		if (key in UI[locale]) el.setAttribute("aria-label", UI[locale][key]);
 	}
 
-	for (const el of document.querySelectorAll<HTMLTimeElement>("time[data-locale-date]")) {
-		const date = new Date(el.dateTime);
-		if (Number.isNaN(date.valueOf())) continue;
-		el.textContent = date.toLocaleDateString(LOCALE_META[locale].dateLocale, {
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-		});
-	}
-
-	const title = document.querySelector<HTMLTitleElement>("title[data-i18n-title]");
+	const title = document.querySelector<HTMLTitleElement>("title[data-title-en]");
 	if (title) {
-		const key = title.dataset.i18nTitle as UIKey;
-		const suffix = title.dataset.i18nTitleSuffix;
-		if (key in UI[locale]) {
-			const text = UI[locale][key];
-			document.title = suffix ? `${text} ${suffix}` : text;
-		}
-	}
-
-	for (const el of document.querySelectorAll<HTMLElement>("[data-locale-toggle]")) {
-		el.textContent = UI[locale].switchLanguage;
-		el.setAttribute("aria-label", UI[locale].switchLanguageLabel);
+		document.title =
+			locale === "en"
+				? (title.dataset.titleEn ?? title.textContent ?? "")
+				: (title.dataset.titleZh ?? title.textContent ?? "");
 	}
 }
 
-function applyLocale(locale: Locale) {
-	document.documentElement.lang = LOCALE_META[locale].htmlLang;
-	document.documentElement.dataset.locale = locale;
-	translate(locale);
-}
-
-applyLocale(storedLocale());
+apply(currentLocale());
 
 document.addEventListener("click", (event) => {
 	const target = event.target;
 	if (!(target instanceof Element)) return;
-	const toggle = target.closest<HTMLElement>("[data-locale-toggle]");
-	if (!toggle) return;
 
-	const current = document.documentElement.dataset.locale;
-	const locale = nextLocale(isLocale(current) ? current : DEFAULT_LOCALE);
+	const choice = target.closest<HTMLElement>("[data-locale-choice]");
+	if (!choice) return;
+
+	const locale = choice.dataset.localeChoice;
+	if (!isLocale(locale)) return;
+
 	try {
-		localStorage.setItem(STORAGE_KEY, locale);
+		localStorage.setItem(LOCALE_STORAGE_KEY, locale);
 	} catch {
 		// Storage can be unavailable in private modes.
 	}
-	applyLocale(locale);
+	apply(locale);
 });

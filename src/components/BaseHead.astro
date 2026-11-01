@@ -6,7 +6,7 @@ import { Font } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import FallbackImage from "../assets/blog-placeholder-1.jpg";
 import { SITE_TITLE } from "../consts";
-import type { UIKey } from "../i18n/ui";
+import { DEFAULT_LOCALE, LOCALE_META, LOCALE_STORAGE_KEY, t, type UIKey } from "../i18n/ui";
 
 interface Props {
 	title: string;
@@ -19,6 +19,10 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = FallbackImage, titleKey, titleSuffix } = Astro.props;
+
+const withSuffix = (value: string) => (titleSuffix ? `${value} ${titleSuffix}` : value);
+const titleZh = withSuffix(titleKey ? t(DEFAULT_LOCALE, titleKey) : title);
+const titleEn = withSuffix(titleKey ? t("en", titleKey) : title);
 ---
 
 <!-- Global Metadata -->
@@ -42,8 +46,28 @@ const { title, description, image = FallbackImage, titleKey, titleSuffix } = Ast
 <link rel="canonical" href={canonicalURL}>
 
 <!-- Primary Meta Tags -->
-<title data-i18n-title={titleKey} data-i18n-title-suffix={titleSuffix}>{title}</title>
+<title data-title-zh={titleZh} data-title-en={titleEn}>{titleZh}</title>
 <meta name="description" content={description}>
+
+<script
+	is:inline
+	define:vars={{ key: LOCALE_STORAGE_KEY, fallback: DEFAULT_LOCALE, meta: LOCALE_META }}
+>
+	(() => {
+		let locale = fallback;
+		try {
+			const stored = localStorage.getItem(key);
+			if (stored && stored in meta) locale = stored;
+		} catch {}
+		const root = document.documentElement;
+		root.dataset.locale = locale;
+		root.lang = meta[locale].htmlLang;
+		const title = document.querySelector("title[data-title-en]");
+		if (title) {
+			document.title = locale === "en" ? title.dataset.titleEn : title.dataset.titleZh;
+		}
+	})();
+</script>
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
