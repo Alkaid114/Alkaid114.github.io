@@ -1,0 +1,93 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  repository_dispatch:
+    types: [posts-updated]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  POSTS_REPOSITORY: Alkaid114/posts
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout blog
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 12
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Verify posts access
+        env:
+          TOKEN: ${{ secrets.POSTS_TOKEN }}
+        run: |
+          status=$(curl -s -o /tmp/repo.json -w '%{http_code}' \
+            -H "Authorization: Bearer ${TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${POSTS_REPOSITORY}")
+          echo "GET /repos/${POSTS_REPOSITORY} -> ${status}"
+          if [ "${status}" != "200" ]; then
+            echo "POSTS_TOKEN cannot read ${POSTS_REPOSITORY}." >&2
+            echo "404 usually means: wrong repository name, the repo is not in the token's repository access list, the token lacks Contents: read, or it expired." >&2
+            exit 1
+          fi
+
+      - name: Checkout posts
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ env.POSTS_REPOSITORY }}
+          token: ${{ secrets.POSTS_TOKEN }}
+          path: .posts
+          persist-credentials: false
+
+      - name: Replace posts
+        run: |
+          rm -rf src/content/posts
+          mkdir -p src/content/posts
+          rsync -a --exclude='.git' --exclude='/README.md' .posts/ src/content/posts/
+          if [ -z "$(ls -A src/content/posts)" ]; then
+            echo "posts repository is empty" >&2
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deploy
+        uses: actions/deploy-pages@v5
