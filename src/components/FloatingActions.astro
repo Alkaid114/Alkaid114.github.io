@@ -61,12 +61,20 @@ const buttonClass =
 </div>
 
 <script>
-	const container = document.querySelector<HTMLElement>("[data-floating]");
-	const toggle = container?.querySelector<HTMLButtonElement>("[data-floating-toggle]");
-	const menu = container?.querySelector<HTMLElement>("[data-floating-menu]");
-	const top = container?.querySelector<HTMLButtonElement>("[data-back-to-top]");
+	let controller: AbortController | undefined;
 
-	if (container && toggle && menu) {
+	const init = () => {
+		controller?.abort();
+		controller = new AbortController();
+		const { signal } = controller;
+
+		const container = document.querySelector<HTMLElement>("[data-floating]");
+		const toggle = container?.querySelector<HTMLButtonElement>("[data-floating-toggle]");
+		const menu = container?.querySelector<HTMLElement>("[data-floating-menu]");
+		const top = container?.querySelector<HTMLButtonElement>("[data-back-to-top]");
+
+		if (!container || !toggle || !menu) return;
+
 		const setOpen = (open: boolean) => {
 			container.dataset.open = String(open);
 			toggle.setAttribute("aria-expanded", String(open));
@@ -75,41 +83,58 @@ const buttonClass =
 
 		setOpen(false);
 
-		toggle.addEventListener("click", () => {
-			setOpen(container.dataset.open !== "true");
-		});
+		toggle.addEventListener("click", () => setOpen(container.dataset.open !== "true"), { signal });
 
-		document.addEventListener("click", (event) => {
-			if (container.dataset.open !== "true") return;
-			if (!(event.target instanceof Node) || container.contains(event.target)) return;
-			setOpen(false);
-		});
+		document.addEventListener(
+			"click",
+			(event) => {
+				if (container.dataset.open !== "true") return;
+				if (!(event.target instanceof Node) || container.contains(event.target)) return;
+				setOpen(false);
+			},
+			{ signal },
+		);
 
-		document.addEventListener("keydown", (event) => {
-			if (event.key !== "Escape" || container.dataset.open !== "true") return;
-			setOpen(false);
-			toggle.focus();
-		});
+		document.addEventListener(
+			"keydown",
+			(event) => {
+				if (event.key !== "Escape" || container.dataset.open !== "true") return;
+				setOpen(false);
+				toggle.focus();
+			},
+			{ signal },
+		);
 
-		menu.addEventListener("click", (event) => {
-			if (!(event.target instanceof Element)) return;
-			if (!event.target.closest("[data-locale-choice]")) return;
-			toggle.focus();
-			setOpen(false);
-		});
-	}
+		menu.addEventListener(
+			"click",
+			(event) => {
+				if (!(event.target instanceof Element)) return;
+				if (!event.target.closest("[data-locale-choice]")) return;
+				toggle.focus();
+				setOpen(false);
+			},
+			{ signal },
+		);
 
-	if (top) {
-		const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-		const update = () => {
-			top.hidden = window.scrollY <= 400;
-		};
+		if (top) {
+			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+			const update = () => {
+				top.hidden = window.scrollY <= 400;
+			};
 
-		update();
-		window.addEventListener("scroll", update, { passive: true });
+			update();
+			window.addEventListener("scroll", update, { passive: true, signal });
 
-		top.addEventListener("click", () => {
-			window.scrollTo({ top: 0, behavior: reduceMotion.matches ? "auto" : "smooth" });
-		});
-	}
+			top.addEventListener(
+				"click",
+				() => {
+					window.scrollTo({ top: 0, behavior: reduceMotion.matches ? "auto" : "smooth" });
+				},
+				{ signal },
+			);
+		}
+	};
+
+	init();
+	document.addEventListener("astro:page-load", init);
 </script>

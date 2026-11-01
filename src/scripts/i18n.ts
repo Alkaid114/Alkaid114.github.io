@@ -10,9 +10,18 @@ import {
 
 const root = document.documentElement;
 
+function storedLocale(): Locale {
+	try {
+		const value = localStorage.getItem(LOCALE_STORAGE_KEY);
+		return isLocale(value) ? value : DEFAULT_LOCALE;
+	} catch {
+		return DEFAULT_LOCALE;
+	}
+}
+
 function currentLocale(): Locale {
 	const value = root.dataset.locale;
-	return isLocale(value) ? value : DEFAULT_LOCALE;
+	return isLocale(value) ? value : storedLocale();
 }
 
 function apply(locale: Locale) {
@@ -38,6 +47,18 @@ function apply(locale: Locale) {
 }
 
 apply(currentLocale());
+
+// The client router rebuilds <html> attributes from the incoming document, which has no locale.
+// Stamp it on the new document before the swap so the first painted frame is already correct.
+document.addEventListener("astro:before-swap", (event) => {
+	const locale = currentLocale();
+	const html = (event as Event & { newDocument: Document }).newDocument.documentElement;
+	html.dataset.locale = locale;
+	html.lang = LOCALE_META[locale].htmlLang;
+});
+
+// New nodes arrive with server-rendered attributes: aria-pressed and aria-label still need applying.
+document.addEventListener("astro:after-swap", () => apply(currentLocale()));
 
 document.addEventListener("click", (event) => {
 	const target = event.target;

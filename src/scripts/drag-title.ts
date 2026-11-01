@@ -1,6 +1,7 @@
-const title = document.querySelector<HTMLElement>("[data-drag-title]");
+const init = () => {
+	const title = document.querySelector<HTMLElement>("[data-drag-title]");
+	if (!title || title.dataset.dragReady === "true") return;
 
-if (title && title.dataset.dragReady !== "true") {
 	title.dataset.dragReady = "true";
 
 	let dragged: HTMLElement | null = null;
@@ -90,4 +91,7 @@ if (title && title.dataset.dragReady !== "true") {
 		window.addEventListener("pointerup", onEnd);
 		window.addEventListener("pointercancel", onEnd);
 	});
-}
+};
+
+init();
+document.addEventListener("astro:page-load", init);
