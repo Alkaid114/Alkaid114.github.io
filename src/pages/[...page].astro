@@ -1,12 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import BaseHead from "../components/BaseHead.astro";
-import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
-import Header from "../components/Header.astro";
 import Profile from "../components/Profile.astro";
 import { POSTS_PER_PAGE, SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import PageLayout from "../layouts/PageLayout.astro";
 import { excerptFromBody } from "../utils/excerpt";
 
 export const getStaticPaths = (async ({ paginate }) => {
@@ -39,113 +37,85 @@ const paginationDisabledClass =
 	"cursor-not-allowed text-secondary-400 opacity-60 dark:text-secondary-600";
 ---
 
-<!doctype html>
-<html lang="en" class="scheme-light-dark">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body
-		class="flex min-h-dvh flex-col bg-secondary-100 dark:bg-secondary-950 bg-no-repeat bg-size-[100%_600px] font-sans text-fluid-s wrap-break-word text-secondary-950 dark:text-secondary-50"
-	>
-		<Header />
-		<main class="flex flex-1 justify-center">
-			<div
-				class="w-full justify-center max-w-240 bg-secondary-50 p-s sm:p-2xl dark:bg-secondary-900"
-			>
-				<Profile />
+<PageLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<Profile />
 
-				<section class="mt-3xl" aria-labelledby="posts-heading">
-					<h2
-						id="posts-heading"
-						class="m-0 font-mono text-fluid-l text-primary-700 dark:text-primary-400"
-					>
-						Posts
-					</h2>
-					<ul
-						class="m-0 mt-s list-none divide-y divide-secondary-200 p-0 dark:divide-secondary-800"
-					>
-						{
-							posts.map((post) => (
-								<li>
-									<a
-										href={`/posts/${post.id}/`}
-										class="group flex flex-col gap-3xs py-s no-underline sm:flex-row sm:items-baseline sm:justify-between sm:gap-m"
-									>
-										<span class="flex min-w-0 flex-col gap-3xs">
-											<span class="text-fluid-m text-secondary-950 transition-colors group-hover:text-primary-600 dark:text-secondary-50 dark:group-hover:text-primary-300">
-												{post.data.title}
-											</span>
-											<span class="line-clamp-3 text-fluid-xs text-secondary-600 dark:text-secondary-400">
-												{post.data.description || post.excerpt}
-											</span>
-										</span>
-										<span class="shrink-0 text-fluid-xs text-secondary-500 dark:text-secondary-400">
-											<FormattedDate date={post.data.pubDate} />
-										</span>
-									</a>
-								</li>
-							))
-						}
-					</ul>
+	<section class="mt-3xl" aria-labelledby="posts-heading">
+		<h2
+			id="posts-heading"
+			class="m-0 font-mono text-fluid-l text-primary-700 dark:text-primary-400"
+		>
+			Posts
+		</h2>
+		<ul class="m-0 mt-s list-none divide-y divide-secondary-200 p-0 dark:divide-secondary-800">
+			{
+				posts.map((post) => (
+					<li>
+						<a
+							href={`/posts/${post.id}/`}
+							class="group flex flex-col gap-3xs py-s no-underline sm:flex-row sm:items-baseline sm:justify-between sm:gap-m"
+						>
+							<span class="flex min-w-0 flex-col gap-3xs">
+								<span class="text-fluid-m text-secondary-950 transition-colors group-hover:text-primary-600 dark:text-secondary-50 dark:group-hover:text-primary-300">
+									{post.data.title}
+								</span>
+								<span class="line-clamp-3 text-fluid-xs text-secondary-600 dark:text-secondary-400">
+									{post.data.description || post.excerpt}
+								</span>
+							</span>
+							<span class="shrink-0 text-fluid-xs text-secondary-500 dark:text-secondary-400">
+								<FormattedDate date={post.data.pubDate} />
+							</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
 
-					{
-						page.lastPage > 1 && (
-							<nav
-								class="mt-l flex items-center justify-center gap-3xs text-fluid-xs"
-								aria-label="Pagination"
-							>
-								{page.url.prev ? (
-									<a
-										href={page.url.prev}
-										rel="prev"
-										class:list={[paginationLinkClass, paginationIdleClass]}
-									>
-										Previous
-									</a>
-								) : (
-									<span
-										class:list={[paginationLinkClass, paginationDisabledClass]}
-										aria-disabled="true"
-									>
-										Previous
-									</span>
-								)}
-								{Array.from({ length: page.lastPage }, (_, i) => i + 1).map((n) => (
-									<a
-										href={pageHref(n)}
-										aria-current={n === page.currentPage ? "page" : undefined}
-										class:list={[
-											paginationLinkClass,
-											n === page.currentPage
-												? paginationCurrentClass
-												: paginationIdleClass,
-										]}
-									>
-										{n}
-									</a>
-								))}
-								{page.url.next ? (
-									<a
-										href={page.url.next}
-										rel="next"
-										class:list={[paginationLinkClass, paginationIdleClass]}
-									>
-										Next
-									</a>
-								) : (
-									<span
-										class:list={[paginationLinkClass, paginationDisabledClass]}
-										aria-disabled="true"
-									>
-										Next
-									</span>
-								)}
-							</nav>
-						)
-					}
-				</section>
-			</div>
-		</main>
-		<Footer />
-	</body>
-</html>
+		{
+			page.lastPage > 1 && (
+				<nav
+					class="mt-l flex items-center justify-center gap-3xs text-fluid-xs"
+					aria-label="Pagination"
+				>
+					{page.url.prev ? (
+						<a href={page.url.prev} rel="prev" class:list={[paginationLinkClass, paginationIdleClass]}>
+							Previous
+						</a>
+					) : (
+						<span
+							class:list={[paginationLinkClass, paginationDisabledClass]}
+							aria-disabled="true"
+						>
+							Previous
+						</span>
+					)}
+					{Array.from({ length: page.lastPage }, (_, i) => i + 1).map((n) => (
+						<a
+							href={pageHref(n)}
+							aria-current={n === page.currentPage ? "page" : undefined}
+							class:list={[
+								paginationLinkClass,
+								n === page.currentPage ? paginationCurrentClass : paginationIdleClass,
+							]}
+						>
+							{n}
+						</a>
+					))}
+					{page.url.next ? (
+						<a href={page.url.next} rel="next" class:list={[paginationLinkClass, paginationIdleClass]}>
+							Next
+						</a>
+					) : (
+						<span
+							class:list={[paginationLinkClass, paginationDisabledClass]}
+							aria-disabled="true"
+						>
+							Next
+						</span>
+					)}
+				</nav>
+			)
+		}
+	</section>
+</PageLayout>
