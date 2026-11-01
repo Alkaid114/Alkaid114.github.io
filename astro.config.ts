@@ -2,15 +2,18 @@
 
 import { existsSync, watch } from "node:fs";
 import path from "node:path";
-import { unified } from "@astrojs/markdown-remark";
+import { satteri } from "@astrojs/markdown-satteri";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import { mirrordown } from "@mirrordown/preset-satteri";
+import { katex } from "@nullpinter/satteri-katex";
 import tailwindcss from "@tailwindcss/vite";
 import type { AstroUserConfig } from "astro";
 import { defineConfig, fontProviders } from "astro/config";
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
-import { remarkAlert } from "remark-github-blockquote-alert";
+
+const mdPlugins = mirrordown({ features: { math: true } });
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,8 +21,10 @@ export default defineConfig({
 	integrations: [expressiveCode(), mdx(), sitemap(), icon()],
 
 	markdown: {
-		processor: unified({
-			remarkPlugins: [remarkAlert],
+		syntaxHighlight: { type: "shiki", excludeLangs: ["mermaid"] },
+		processor: satteri({
+			...mdPlugins,
+			mdastPlugins: [...(mdPlugins.mdastPlugins || []), katex()],
 		}),
 	},
 

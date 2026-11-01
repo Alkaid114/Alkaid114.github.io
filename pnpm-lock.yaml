@@ -17,6 +17,12 @@ importers:
       '@astrojs/sitemap':
         specifier: ^3.7.4
         version: 3.7.4
+      '@mirrordown/preset-satteri':
+        specifier: ^0.3.0
+        version: 0.3.0(satteri@0.10.5)
+      '@nullpinter/satteri-katex':
+        specifier: 0.2.0
+        version: 0.2.0(satteri@0.10.5)
       '@tailwindcss/vite':
         specifier: ^4.3.3
         version: 4.3.3(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(yaml@2.9.1))
@@ -29,9 +35,12 @@ importers:
       astro-icon:
         specifier: ^1.2.0
         version: 1.2.0
-      remark-github-blockquote-alert:
-        specifier: ^2.1.0
-        version: 2.1.0
+      katex:
+        specifier: ^0.18.10
+        version: 0.18.10
+      satteri:
+        specifier: 0.10.5
+        version: 0.10.5
       sharp:
         specifier: ^0.35.0
         version: 0.35.5(@types/node@24.19.2)
@@ -42,6 +51,9 @@ importers:
       '@astrojs/markdown-remark':
         specifier: ^7.3.5
         version: 7.3.5
+      '@astrojs/markdown-satteri':
+        specifier: ^0.4.6
+        version: 0.4.6
       '@iconify-json/bi':
         specifier: ^1.2.7
         version: 1.2.7
@@ -500,6 +512,130 @@ packages:
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
 
+  '@mirrordown/core@0.1.2':
+    resolution: {integrity: sha512-FLbrWiowgK8+IfPl6yIKqMVS5PdINeDfFgStUS+tjpZNx4cnegrvd+RGXFrDvNzcVLCrJa2cDbCa+y979fHGmQ==}
+    engines: {node: '>=24.0.0'}
+
+  '@mirrordown/preset-satteri@0.3.0':
+    resolution: {integrity: sha512-dPAzRq28cDPMiMudBagL8AoRLcm0r2ltXlEqoWO2F1Vck7sWBBnkCznoCgNjLhQR4bawauhmpAeZRD9s5gJZjw==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-abbr@0.1.0':
+    resolution: {integrity: sha512-s9TlfUyb2aTmHjDBHgUNZo2ACyvjalbh8/TplwO2ineOQ6F+Vd/7mSb6jdv6Aow99fewEiEbOlNHdm8UMmXOFA==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-autolink-headings@0.1.0':
+    resolution: {integrity: sha512-GZV57/GqVptfXDJ1AYhmsk/CXyTnebf+kQfg3BhOUkN22m9QvN47dvCOhQ78cmGeF7wIBNmti6p2Cn0woRs71w==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-caption@0.1.0':
+    resolution: {integrity: sha512-DkjODxG1duxazjqRrp2M+PxjYIEcMk6yLJCAHxdHgxXglx2nlvtPWefVN81visUWv7Mhtf8f6WM89P9kcDd7xQ==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-del@0.1.0':
+    resolution: {integrity: sha512-gNoJQ1/tVrHvskCEAbuYiE+My9ngfBEbEm+rA2XSOE2zXPFMe07+Mus3DoPgDw1kPk0zoH3MHZC6nUH0XBVvUw==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-github-alerts@0.1.0':
+    resolution: {integrity: sha512-B6SEaI3oNc+1iwPTfWJYtFj8txReA26DM3juq9WNY+KCEiRkdpmj9ae5RAQrHs6XN/UdYnAy/8kTHpBjmH6d9Q==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-ins@0.1.0':
+    resolution: {integrity: sha512-cMRLzZ0FlIAq/EVXTzsXKri46KxOn9LreUMmjIs9iwUOOfT0ApjX2357VbaoGA0/yR0qZqt3R0yp2BGAzby2xg==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-kbd@0.1.0':
+    resolution: {integrity: sha512-mulN5x3vxc8xARbSKIEOllv0JKxcfOpU1fKYdycEaEyWuPCVi8sABIxs8+Mc+puCw4YcO0AwsTCtzr5kXAqtsw==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-lightbox@0.2.0':
+    resolution: {integrity: sha512-uUL0R9V8Pvqie5qWx3Zb9kMXcOmV9rt4gSJGmHiIZg5P7GXVWNeeBkuwAKeOeJRFv4zPgvrw9Hl++b+iospZ4w==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-mark@0.1.0':
+    resolution: {integrity: sha512-TmmmKChRlLO3Z4jI48gvWtP4T9AzM7Cnb80Y2Bms1hfoWYH25GQl+sUdHS71xqozt1TihRH6RUbWPG7D7cJCMQ==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-mermaid-pele@0.1.0':
+    resolution: {integrity: sha512-Ab0HLlfr1qtwaUauUqNTSwE2c41/GM+KzrpMyqXF4+BHInW6ewkdTD7CRWK0+mgHbsNp5GTKiZ/j+EIwZyv50g==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-ruby@0.1.0':
+    resolution: {integrity: sha512-WaCwKglpd0A/BvmqiPGsKc14R90BN1a99ZNszC5oz+m94Nq1PFD3g4O4zKQP93yZtCJy7OKcA8RlLlWxqlC1sQ==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-sectionize@0.1.0':
+    resolution: {integrity: sha512-vnDfUkS1A/yHj+k1JA3RGaeDGX+2dYm18yT8b0hHJr/T0QSKS72QAZerH/o1Uc/ueYAipfDsR7aZeWNvWXR6ZQ==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-slug@0.1.0':
+    resolution: {integrity: sha512-x5Ra75Cl9awWlLOWoOhIz7NQD9BUNgJmLKNooUVV4xZRynhOhyBoj7sFQvVPESv7ciSit8MIvuGm/hNrfrEuew==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-spoiler@0.1.0':
+    resolution: {integrity: sha512-4WN4kcsdW75jyRrePPnmvpdqArD7IKs1MvPF85eqPmYDOJoe1BgBrBKyQCmKMwEE3I4+KRAk5FacJ4iQAPC8hg==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-squeeze-paragraphs@0.1.0':
+    resolution: {integrity: sha512-tGkPAfo/BGHdf2rPYOzROCtBKI5UrsrogGLCpLqiNNslJqSdB35SXZKMmkvEI4O6p7aS7o3ng3Sli4QgYCh3rA==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-steps@0.1.1':
+    resolution: {integrity: sha512-Bi1ZjeDElMwcZDfP410AGBlrK3Xf+sBwQN+CzTf5TntsFKS0NFOyzyyImXFEN2TOhnBQlv3ZHFJK1W0h/BMIRg==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-tab-icons@0.1.0':
+    resolution: {integrity: sha512-SiZLRAa1S8DrMF3jwpilFHlQv3e8aV4R7wx1CKjEJvmir4W/gjKdzvN2fU0Pdkgdb+gq3Uwoeia8pjAfSMeNFg==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-tabs@0.1.2':
+    resolution: {integrity: sha512-GXodcCNLajIgtBRSdBu3VVnwTE7I9tTEWSx7rG8MNBTmRuSnsqtguw7DgBl+ZHOFm2OWfwv9VSEE8iDZha04+g==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
+  '@mirrordown/sat-unwrap-images@0.1.0':
+    resolution: {integrity: sha512-STAv5AXhv2aRLlf79pzSVvoxzQMnhXd7Wb+psL+WZ7rjDUeU/OzIm4OfN+aY5oVlQZoZsxtpbzRxUjgTAcFJvw==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      satteri: ^0.10.5 || ^0.11.0
+
   '@napi-rs/wasm-runtime@1.2.6':
     resolution: {integrity: sha512-mRyDmEw9/fCDXCGfL1sbgIw/GUK0PVxRW4YwgPN61F3LQ+fSyoBFarJVzgGyhF6kRzEQZ0FejDqm4WLXSeqQmw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=23.5.0}
@@ -509,6 +645,11 @@ packages:
 
   '@nodable/entities@3.1.0':
     resolution: {integrity: sha512-LsS/DjHr+uDM647Gru/cA8+J3a3HfhttwCKLyuoyN7yXTFCxKBtSgMQBvrW9yNPa2/zDRUNuGPaH5QUFoa4arQ==}
+
+  '@nullpinter/satteri-katex@0.2.0':
+    resolution: {integrity: sha512-Y1cIA8S65D0R+EGl8O8tZNedvfcP6yOep54s9O/r1/t1WxKd35MVEbmxqBy15/ZVE3XFXaEz4Pbu8OIWT8A4lQ==}
+    peerDependencies:
+      satteri: ^0.10.3
 
   '@oslojs/encoding@1.1.0':
     resolution: {integrity: sha512-70wQhgYmndg4GCPxPPxPGevRKqTIJ2Nh4OkiMWmDAVYsTQ+Ta7Sq+rPevXyXGdzr30/qZBnyOalCszoMxlyldQ==}
@@ -891,6 +1032,10 @@ packages:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
 
+  commander@15.0.0:
+    resolution: {integrity: sha512-z67u4ZhzCL/Tydu1lJARtEZYWbWaN7oYLHbsuzocr6y4N6WZAagG3RQ4FW61V1/0+jImpj293XfrcYnd1qxtPg==}
+    engines: {node: '>=22.12.0'}
+
   common-ancestor-path@2.0.0:
     resolution: {integrity: sha512-dnN3ibLeoRf2HNC+OlCiNc5d2zxbLJXOtiZUudNFSXZrNSydxcCsSpRzXwfu7BBWCIfHPw+xTayeBvJCP/D8Ng==}
     engines: {node: '>= 18'}
@@ -1198,6 +1343,10 @@ packages:
 
   jsonc-parser@3.3.1:
     resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==}
+
+  katex@0.18.10:
+    resolution: {integrity: sha512-/B6p9eY9DX7aHBfpkHdpirDTZ5QH9xTwL9y837PWuzuv41O5jFdqNQwVQEQsimY0/iVNkwBY4+4hMfhQ7d4Dbw==}
+    hasBin: true
 
   lightningcss-android-arm64@1.32.0:
     resolution: {integrity: sha512-YK7/ClTt4kAK0vo6w3X+Pnm0D2cf2vPHbhOXdoNti1Ga0al1P4TBZhwjATvjNwLEBCnKvjJc2jQgHXH0NEwlAg==}
@@ -1615,6 +1764,10 @@ packages:
   pathe@2.0.3:
     resolution: {integrity: sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==}
 
+  pele@1.13.0:
+    resolution: {integrity: sha512-Ie8UKY9x00MsuR3jO6AzUwzK2Z6MIV3Tf4EDdITiuk8Uaz8K7g0R082WqsqNaSU8DdgkrRvZThzhit83mi/uiw==}
+    engines: {node: '>=20'}
+
   piccolore@0.1.3:
     resolution: {integrity: sha512-o8bTeDWjE086iwKrROaDf31K0qC/BENdm15/uH9usSC/uZjJOKb2YGiVHfLY4GhwsERiPI1jmwI2XrA7ACOxVw==}
 
@@ -1702,10 +1855,6 @@ packages:
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
-
-  remark-github-blockquote-alert@2.1.0:
-    resolution: {integrity: sha512-J392jmIP684d7iGsENN0uguL10IGbRdc8bTUSrd/jOLzdWkwg721Fj3JPQGN8tF6fTIrE5HHOIA3nBuwuaeuPQ==}
-    engines: {node: '>=16'}
 
   remark-mdx@3.1.1:
     resolution: {integrity: sha512-Pjj2IYlUY3+D8x00UJsIOg5BEvfMyeI+2uLPn9VO9Wg4MEtN/VTIq2NEJQfde9PnX15KgtHyl9S0BcTnWrIuWg==}
@@ -2517,6 +2666,128 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@mirrordown/core@0.1.2':
+    dependencies:
+      '@types/hast': 3.0.5
+      '@types/mdast': 4.0.4
+
+  '@mirrordown/preset-satteri@0.3.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/sat-abbr': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-autolink-headings': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-caption': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-del': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-github-alerts': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-ins': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-kbd': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-lightbox': 0.2.0(satteri@0.10.5)
+      '@mirrordown/sat-mark': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-mermaid-pele': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-ruby': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-sectionize': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-slug': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-spoiler': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-squeeze-paragraphs': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-steps': 0.1.1(satteri@0.10.5)
+      '@mirrordown/sat-tab-icons': 0.1.0(satteri@0.10.5)
+      '@mirrordown/sat-tabs': 0.1.2(satteri@0.10.5)
+      '@mirrordown/sat-unwrap-images': 0.1.0(satteri@0.10.5)
+      satteri: 0.10.5
+
+  '@mirrordown/sat-abbr@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-autolink-headings@0.1.0(satteri@0.10.5)':
+    dependencies:
+      satteri: 0.10.5
+
+  '@mirrordown/sat-caption@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-del@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-github-alerts@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-ins@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-kbd@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-lightbox@0.2.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-mark@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-mermaid-pele@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      pele: 1.13.0
+      satteri: 0.10.5
+
+  '@mirrordown/sat-ruby@0.1.0(satteri@0.10.5)':
+    dependencies:
+      satteri: 0.10.5
+
+  '@mirrordown/sat-sectionize@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-slug@0.1.0(satteri@0.10.5)':
+    dependencies:
+      github-slugger: 2.0.0
+      satteri: 0.10.5
+
+  '@mirrordown/sat-spoiler@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-squeeze-paragraphs@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-steps@0.1.1(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-tab-icons@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-tabs@0.1.2(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
+  '@mirrordown/sat-unwrap-images@0.1.0(satteri@0.10.5)':
+    dependencies:
+      '@mirrordown/core': 0.1.2
+      satteri: 0.10.5
+
   '@napi-rs/wasm-runtime@1.2.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)':
     dependencies:
       '@emnapi/core': 1.11.1
@@ -2532,6 +2803,11 @@ snapshots:
     optional: true
 
   '@nodable/entities@3.1.0': {}
+
+  '@nullpinter/satteri-katex@0.2.0(satteri@0.10.5)':
+    dependencies:
+      katex: 0.18.10
+      satteri: 0.10.5
 
   '@oslojs/encoding@1.1.0': {}
 
@@ -2900,6 +3176,8 @@ snapshots:
   comma-separated-tokens@2.0.3: {}
 
   commander@11.1.0: {}
+
+  commander@15.0.0: {}
 
   common-ancestor-path@2.0.0: {}
 
@@ -3302,6 +3580,10 @@ snapshots:
   jiti@2.7.0: {}
 
   jsonc-parser@3.3.1: {}
+
+  katex@0.18.10:
+    dependencies:
+      commander: 15.0.0
 
   lightningcss-android-arm64@1.32.0:
     optional: true
@@ -3948,6 +4230,8 @@ snapshots:
 
   pathe@2.0.3: {}
 
+  pele@1.13.0: {}
+
   piccolore@0.1.3: {}
 
   picocolors@1.1.1: {}
@@ -4060,10 +4344,6 @@ snapshots:
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
-
-  remark-github-blockquote-alert@2.1.0:
-    dependencies:
-      unist-util-visit: 5.2.0
 
   remark-mdx@3.1.1:
     dependencies:

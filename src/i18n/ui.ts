@@ -39,7 +39,7 @@ const zh: Record<UIKey, string> = {
 	language: "语言",
 	backToTop: "回到顶部",
 	lastUpdated: "最后更新于",
-	licenseCaution: "注意：本文采用特定的许可条款：",
+	licenseCaution: "注意！本文采用特定的许可条款：",
 	licenseWithUrl: "使用或分发本内容时，请遵守相应的许可条款。",
 	licenseNoUrl: "转载本文前请先联系作者获得许可。",
 	siteDescription: "欢迎来到我的博客！",
