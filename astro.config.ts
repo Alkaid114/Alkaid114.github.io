@@ -39,11 +39,11 @@ export default defineConfig({
 			subsets: ["latin"],
 			display: "swap",
 			fallbacks: [
+				"Noto Sans CJK SC",
+				"Source Han Sans SC",
 				"PingFang SC",
 				"Hiragino Sans GB",
 				"Microsoft YaHei",
-				"Noto Sans CJK SC",
-				"Source Han Sans SC",
 				"ui-sans-serif",
 				"system-ui",
 				"sans-serif",

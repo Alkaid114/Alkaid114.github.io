@@ -111,12 +111,12 @@ const category = categoryValue?.trim()
 						)
 					}
 				</div>
-				<h1 class="m-0 text-fluid-3xl text-secondary-950 dark:text-secondary-50">
+				<h1 class="m-0 text-fluid-l text-secondary-950 dark:text-secondary-50">
 					{titleKey ? <Translated name={titleKey} /> : title}
 				</h1>
 			</div>
 			<div
-				class="prose prose-xl prose-theme max-w-none text-fluid-s prose-h1:text-fluid-2xl prose-h2:text-fluid-xl prose-h3:text-fluid-l prose-h4:text-fluid-m prose-h5:text-fluid-s prose-h6:text-fluid-xs"
+				class="prose prose-xl prose-theme max-w-none font-sans text-fluid-xs prose-h1:text-fluid-l prose-h2:text-fluid-m prose-h3:text-fluid-s prose-h4:text-fluid-xs prose-h5:text-fluid-xs prose-h6:text-fluid-xs"
 			>
 				<slot />
 			</div>
