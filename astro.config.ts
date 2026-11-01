@@ -19,7 +19,17 @@ const mdPlugins = mirrordown({ features: { math: true } });
 // https://astro.build/config
 export default defineConfig({
 	site: SITE_URL,
-	integrations: [expressiveCode(), mdx(), sitemap(), icon()],
+	integrations: [
+		expressiveCode({
+			styleOverrides: {
+				uiFontFamily: "var(--font-jetbrains-mono)",
+				codeFontFamily: "var(--font-jetbrains-mono)",
+			},
+		}),
+		mdx(),
+		sitemap(),
+		icon(),
+	],
 
 	markdown: {
 		syntaxHighlight: { type: "shiki", excludeLangs: ["mermaid"] },
