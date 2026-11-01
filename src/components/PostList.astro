@@ -33,7 +33,7 @@ const baseHref =
 const pageHref = (n: number) => (n === 1 ? baseHref : `${baseHref}${n}/`);
 
 const paginationLinkClass =
-	"inline-flex min-w-8 items-center justify-center rounded-md px-2xs py-3xs no-underline transition-colors";
+	"inline-flex min-w-8 items-center justify-center rounded-xs font-mono px-2xs py-3xs no-underline transition-colors";
 const paginationIdleClass =
 	"text-secondary-700 hover:bg-secondary-200 hover:text-secondary-950 dark:text-secondary-300 dark:hover:bg-secondary-800 dark:hover:text-secondary-50";
 const paginationCurrentClass =
@@ -49,11 +49,11 @@ const paginationDisabledClass =
 				<span class="flex min-w-0 flex-col gap-3xs">
 					<a
 						href={`/posts/${post.id}/`}
-						class="text-fluid-m text-secondary-950 no-underline transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-primary-600 dark:text-secondary-50 dark:group-hover:text-primary-300"
+						class="text-fluid-m font-bold text-primary-950 no-underline transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-primary-600 dark:text-primary-50 dark:group-hover:text-primary-300"
 					>
 						{post.data.title}
 					</a>
-					<span class="line-clamp-3 text-fluid-xs text-secondary-600 dark:text-secondary-400">
+					<span class="line-clamp-2 text-fluid-xs mb-xs mt-xs text-secondary-600 dark:text-secondary-400">
 						{post.excerpt}
 					</span>
 				</span>
@@ -81,11 +81,18 @@ const paginationDisabledClass =
 			class="mt-l flex items-center justify-center gap-3xs text-fluid-xs"
 		>
 			{page.url.prev ? (
-				<a rel="prev" href={page.url.prev} class:list={[paginationLinkClass, paginationIdleClass]}>
+				<a
+					rel="prev"
+					href={page.url.prev}
+					class:list={[paginationLinkClass, paginationIdleClass]}
+				>
 					<Translated name="previous" />
 				</a>
 			) : (
-				<span class:list={[paginationLinkClass, paginationDisabledClass]} aria-disabled="true">
+				<span
+					class:list={[paginationLinkClass, paginationDisabledClass]}
+					aria-disabled="true"
+				>
 					<Translated name="previous" />
 				</span>
 			)}
@@ -102,11 +109,18 @@ const paginationDisabledClass =
 				</a>
 			))}
 			{page.url.next ? (
-				<a rel="next" href={page.url.next} class:list={[paginationLinkClass, paginationIdleClass]}>
+				<a
+					rel="next"
+					href={page.url.next}
+					class:list={[paginationLinkClass, paginationIdleClass]}
+				>
 					<Translated name="next" />
 				</a>
 			) : (
-				<span class:list={[paginationLinkClass, paginationDisabledClass]} aria-disabled="true">
+				<span
+					class:list={[paginationLinkClass, paginationDisabledClass]}
+					aria-disabled="true"
+				>
 					<Translated name="next" />
 				</span>
 			)}

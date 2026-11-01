@@ -6,7 +6,6 @@ export const LOCALE_STORAGE_KEY = "locale";
 const en = {
 	home: "Home",
 	about: "About",
-	posts: "Posts",
 	categories: "Categories",
 	postCount: "posts",
 	previous: "Previous",
@@ -30,7 +29,6 @@ export type UIKey = keyof typeof en;
 const zh: Record<UIKey, string> = {
 	home: "首页",
 	about: "关于",
-	posts: "文章",
 	categories: "分类",
 	postCount: "篇文章",
 	previous: "上一页",
