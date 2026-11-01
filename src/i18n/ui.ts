@@ -20,6 +20,7 @@ const en = {
 	siteDescription: "Welcome to my blog!",
 	aboutTitle: "About Me",
 	aboutDescription: "A little about this site",
+	friendLinks: "Friends",
 } as const;
 
 export type UIKey = keyof typeof en;
@@ -40,6 +41,7 @@ const zh: Record<UIKey, string> = {
 	siteDescription: "欢迎来到我的博客！",
 	aboutTitle: "关于我",
 	aboutDescription: "关于这个站点",
+	friendLinks: "友链",
 };
 
 export const UI = { zh, en } satisfies Record<Locale, Record<UIKey, string>>;

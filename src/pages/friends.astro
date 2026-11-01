@@ -1,0 +1,27 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import Translated from "../components/Translated.astro";
+import { FRIEND_LINKS } from "../consts";
+import { DEFAULT_LOCALE, t } from "../i18n/ui";
+---
+
+<PageLayout title={t(DEFAULT_LOCALE, "friendLinks")} description="" titleKey="friendLinks">
+	<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+		{
+			FRIEND_LINKS.map((friend) => (
+				<a
+					href={friend.url}
+					class="flex items-center gap-4 p-4 border border-secondary-200 dark:border-secondary-800 hover:bg-secondary-100 dark:hover:bg-secondary-700 transition-colors"
+				>
+					<img src={friend.avatar} alt={friend.title} class="w-16 h-16 object-cover " />
+					<div class="flex flex-col">
+						<span class="font-bold text-lg">{friend.title}</span>
+						<span class="text-secondary-700 dark:text-secondary-300">
+							{friend.description}
+						</span>
+					</div>
+				</a>
+			))
+		}
+	</div>
+</PageLayout>
