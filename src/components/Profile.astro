@@ -5,15 +5,13 @@ import { SITE_TITLE, SOCIAL_LINKS } from "../consts";
 import Avatar from "./Avatar.astro";
 ---
 
-<div
-	class="prose prose-xl prose-theme max-w-none text-fluid-s prose-h1:text-fluid-2xl prose-h2:text-fluid-xl prose-h3:text-fluid-l prose-h4:text-fluid-m prose-h5:text-fluid-s prose-h6:text-fluid-xs"
->
+<div class="max-w-none prose-theme prose">
 	<div
 		class="flex flex-col justify-center items-center gap-s text-center sm:flex-row sm:items-center sm:gap-m sm:text-left pt-m sm:pt-0"
 	>
 		<Avatar src={avatar} alt="Avatar" />
 		<div class="w-full sm:w-auto m-5">
-			<h1 class="m-0 font-mono" data-drag-title>
+			<h1 class="m-0 font-mono font-bold sm:text-fluid-2xl text-fluid-xl" data-drag-title>
 				{
 					Array.from(SITE_TITLE).map((char) => (
 						<span class="inline-block cursor-grab touch-pan-y select-none" data-char>

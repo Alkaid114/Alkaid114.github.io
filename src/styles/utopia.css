@@ -23,6 +23,9 @@
 	--space-xl: clamp(3.375rem, 3.2216rem + 0.6818vw, 3.75rem);
 	--space-2xl: clamp(4.5rem, 4.2955rem + 0.9091vw, 5rem);
 	--space-3xl: clamp(6.75rem, 6.4432rem + 1.3636vw, 7.5rem);
+	--space-4xl: clamp(7.875rem, 7.517rem + 1.5909vw, 8.75rem);
+	--space-5xl: clamp(9rem, 8.5909rem + 1.8182vw, 10rem);
+	--space-6xl: clamp(10.125rem, 9.6648rem + 2.0455vw, 11.25rem);
 }
 
 @theme inline {
@@ -53,4 +56,7 @@
 	--spacing-xl: var(--space-xl);
 	--spacing-2xl: var(--space-2xl);
 	--spacing-3xl: var(--space-3xl);
+	--spacing-4xl: var(--space-4xl);
+	--spacing-5xl: var(--space-5xl);
+	--spacing-6xl: var(--space-6xl);
 }
