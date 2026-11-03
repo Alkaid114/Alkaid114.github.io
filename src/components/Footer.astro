@@ -13,13 +13,9 @@ const commitUrl = GIT_REPO_COMMIT_HASH_URL.replace("{}", fullHash);
 ---
 
 <footer
-	class="px-s pt-l pb-3xl text-center text-secondary-700 dark:text-secondary-300 font-mono text-m"
+	class="px-s pt-l pb-m text-center text-secondary-700 dark:text-secondary-300 font-mono sm:text-fluid-xs text-fluid-2xs"
 >
 	<div class="flex items-center justify-center gap-1 mb-2">
-		<span>Source</span>
-		<a href={commitUrl} target="_blank" rel="noopener noreferrer" class={linkClass}>
-			{shortHash}</a
-		>
 		<Icon name="fa6-regular:copyright" class="w-4 h-4" />
 		<span>{today.getFullYear()} {NICKNAME}.</span>
 		<a
@@ -31,6 +27,13 @@ const commitUrl = GIT_REPO_COMMIT_HASH_URL.replace("{}", fullHash);
 			<Icon name="bi:rss-fill" class="size-6 inline-block" />
 			<span class="ml-1">RSS</span>
 		</a>
+	</div>
+
+	<div class="flex items-center justify-center gap-1 mb-2">
+		<span>Source</span>
+		<a href={commitUrl} target="_blank" rel="noopener noreferrer" class={linkClass}>
+			{shortHash}</a
+		>
 	</div>
 
 	<p class="leading-relaxed max-w-prose mx-auto">

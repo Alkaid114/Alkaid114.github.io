@@ -79,3 +79,8 @@ html[data-locale="en"] [data-locale-choice="en"] {
 	overflow-y: hidden;
 	padding-block: 0.5rem;
 }
+
+@custom-variant hover {
+  &:hover { @slot; }
+  &:active { @slot; }
+}

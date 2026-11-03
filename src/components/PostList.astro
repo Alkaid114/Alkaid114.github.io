@@ -5,6 +5,7 @@ import type { Page } from "astro";
 import { categoryHref, categoryLookup, resolveCategory } from "../utils/categories";
 import { excerptFromBody } from "../utils/excerpt";
 import FormattedDate from "./FormattedDate.astro";
+import Pagination from "./Pagination.astro";
 import Translated from "./Translated.astro";
 
 interface Props {
@@ -31,15 +32,6 @@ const baseHref =
 		? currentPath.replace(new RegExp(`/${page.currentPage}/$`), "/")
 		: currentPath;
 const pageHref = (n: number) => (n === 1 ? baseHref : `${baseHref}${n}/`);
-
-const paginationLinkClass =
-	"inline-flex min-w-8 items-center justify-center rounded-xs font-mono px-2xs py-3xs no-underline transition-colors";
-const paginationIdleClass =
-	"text-secondary-700 hover:bg-secondary-200 hover:text-secondary-950 dark:text-secondary-300 dark:hover:bg-secondary-800 dark:hover:text-secondary-50";
-const paginationCurrentClass =
-	"bg-primary-600 text-secondary-50 dark:bg-primary-500 dark:text-secondary-950";
-const paginationDisabledClass =
-	"cursor-not-allowed text-secondary-400 opacity-60 dark:text-secondary-600";
 ---
 
 <ul class="m-0 mt-s list-none divide-y divide-secondary-200 p-0 dark:divide-secondary-800">
@@ -75,55 +67,15 @@ const paginationDisabledClass =
 
 {
 	page.lastPage > 1 && (
-		<nav
-			data-locale-aria-label="pagination"
-			aria-label="Pagination"
-			class="mt-l flex items-center justify-center gap-3xs text-fluid-xs"
-		>
-			{page.url.prev ? (
-				<a
-					rel="prev"
-					href={page.url.prev}
-					class:list={[paginationLinkClass, paginationIdleClass]}
-				>
-					<Translated name="previous" />
-				</a>
-			) : (
-				<span
-					class:list={[paginationLinkClass, paginationDisabledClass]}
-					aria-disabled="true"
-				>
-					<Translated name="previous" />
-				</span>
-			)}
-			{Array.from({ length: page.lastPage }, (_, i) => i + 1).map((n) => (
-				<a
-					href={pageHref(n)}
-					aria-current={n === page.currentPage ? "page" : undefined}
-					class:list={[
-						paginationLinkClass,
-						n === page.currentPage ? paginationCurrentClass : paginationIdleClass,
-					]}
-				>
-					{n}
-				</a>
-			))}
-			{page.url.next ? (
-				<a
-					rel="next"
-					href={page.url.next}
-					class:list={[paginationLinkClass, paginationIdleClass]}
-				>
-					<Translated name="next" />
-				</a>
-			) : (
-				<span
-					class:list={[paginationLinkClass, paginationDisabledClass]}
-					aria-disabled="true"
-				>
-					<Translated name="next" />
-				</span>
-			)}
-		</nav>
+		<>
+			<Pagination
+				{page}
+				radius={1}
+				href={pageHref}
+				compact
+				class="mt-l flex sm:hidden"
+			/>
+			<Pagination {page} radius={2} href={pageHref} class="mt-l hidden sm:flex" />
+		</>
 	)
 }

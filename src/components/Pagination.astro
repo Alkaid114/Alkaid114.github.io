@@ -1,0 +1,174 @@
+---
+import type { Page } from "astro";
+import type { CollectionEntry } from "astro:content";
+import Translated from "./Translated.astro";
+
+interface Props {
+	page: Page<CollectionEntry<"posts">>;
+	radius: number;
+	href: (page: number) => string;
+	compact?: boolean;
+	class?: string;
+}
+
+const { page, radius, href, compact = false, class: className } = Astro.props;
+
+type Slot = { kind: "page"; page: number } | { kind: "gap"; key: string };
+
+// 计算可见页码，把连续的隐藏页码折叠成gap
+const buildSlots = (current: number, last: number): Slot[] => {
+	if (last <= 1) return [];
+
+	// 如果总页数很少，全显示
+	if (last <= 5) {
+		return Array.from({ length: last }, (_, i) => ({ kind: "page", page: i + 1 }));
+	}
+
+	const visible = new Set<number>([1, last]);
+
+	if (current <= 3) {
+		for (let i = 1; i <= current; i++) visible.add(i);
+	} else if (current >= last - 2) {
+		for (let i = current; i <= last; i++) visible.add(i);
+	} else {
+		for (let i = 1; i <= radius; i++) {
+			visible.add(current - i);
+			visible.add(current + i);
+		}
+		visible.add(current);
+	}
+
+	const result: Slot[] = [];
+	let prev: number | undefined;
+
+	for (let n = 1; n <= last; n++) {
+		if (!visible.has(n)) continue;
+
+		if (prev !== undefined && n - prev > 1) {
+			result.push(
+				n - prev === 2
+					? { kind: "page", page: prev + 1 }
+					: { kind: "gap", key: `${prev}-${n}` },
+			);
+		}
+
+		result.push({ kind: "page", page: n });
+		prev = n;
+	}
+
+	return result;
+};
+
+const items = buildSlots(page.currentPage, page.lastPage);
+
+const linkClass =
+	"inline-flex min-w-8 items-center justify-center rounded-xs px-2xs py-3xs font-mono no-underline transition-colors";
+const controlBaseClass = compact ? `${linkClass} px-1` : linkClass;
+const idleClass =
+	"text-secondary-700 hover:bg-secondary-200 hover:text-secondary-950 dark:text-secondary-300 dark:hover:bg-secondary-800 dark:hover:text-secondary-50";
+const currentClass = "bg-primary-600 text-secondary-50 dark:bg-primary-500 dark:text-secondary-950";
+const disabledClass = "cursor-not-allowed text-secondary-400 opacity-60 dark:text-secondary-600";
+const gapClass =
+	"inline-flex min-w-4 select-none items-center justify-center font-mono text-secondary-500 dark:text-secondary-400";
+const arrowClass = "text-fluid-m leading-none";
+
+const controlClass = (disabled: boolean) => [
+	controlBaseClass,
+	disabled ? disabledClass : idleClass,
+];
+
+const prev = { href: page.url.prev, label: "previous" as const, glyph: "<" };
+const next = { href: page.url.next, label: "next" as const, glyph: ">" };
+---
+
+<nav
+	data-locale-aria-label="pagination"
+	aria-label="Pagination"
+	class:list={[
+		"flex flex-nowrap items-center justify-center whitespace-nowrap gap-3xs text-fluid-xs",
+		className,
+	]}
+>
+	{
+		prev.href ? (
+			<a rel="prev" href={prev.href} class:list={controlClass(false)}>
+				{compact ? (
+					<>
+						<span aria-hidden="true" class={arrowClass}>
+							{prev.glyph}
+						</span>
+						<span class="sr-only">
+							<Translated name={prev.label} />
+						</span>
+					</>
+				) : (
+					<Translated name={prev.label} />
+				)}
+			</a>
+		) : (
+			<span class:list={controlClass(true)} aria-disabled="true">
+				{compact ? (
+					<span aria-hidden="true" class={arrowClass}>
+						{prev.glyph}
+					</span>
+				) : (
+					<Translated name={prev.label} />
+				)}
+			</span>
+		)
+	}
+	{
+		items.map((item) =>
+			item.kind === "gap" ? (
+				<span aria-hidden="true" class={`${gapClass} shrink-0 hidden sm:inline-flex`}>
+					...
+				</span>
+			) : (
+				<a
+					href={href(item.page)}
+					aria-current={item.page === page.currentPage ? "page" : undefined}
+					class:list={[
+						linkClass,
+						"shrink-0",
+						item.page !== page.currentPage &&
+						item.page !== 1 &&
+						item.page !== page.lastPage
+							? "hidden sm:inline-flex"
+							: "inline-flex",
+						item.page === page.currentPage ? currentClass : idleClass,
+					]}
+				>
+					{item.page}
+				</a>
+			),
+		)
+	}
+	{
+		next.href ? (
+			<a rel="next" href={next.href} class:list={controlClass(false)}>
+				{compact ? (
+					<>
+						<span aria-hidden="true" class={arrowClass}>
+							{next.glyph}
+						</span>
+						<span class="sr-only">
+							<Translated name={next.label} />
+						</span>
+					</>
+				) : (
+					<Translated name={next.label} />
+				)}
+			</a>
+		) : (
+			<span class:list={controlClass(true)} aria-disabled="true">
+				{compact ? (
+					<span aria-hidden="true" class={arrowClass}>
+						{next.glyph}
+					</span>
+				) : (
+					<Translated name={next.label} />
+				)}
+			</span>
+		)
+	}
+</nav>
