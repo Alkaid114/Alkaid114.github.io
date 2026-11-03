@@ -3,14 +3,17 @@ import { getCollection } from "astro:content";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import PostList from "../components/PostList.astro";
 import Profile from "../components/Profile.astro";
-import Translated from "../components/Translated.astro";
 import { POSTS_PER_PAGE, SITE_TITLE } from "../consts";
 import { DEFAULT_LOCALE, t } from "../i18n/ui";
 import PageLayout from "../layouts/PageLayout.astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
 	const posts = (await getCollection("posts"))
-		.filter((post) => !post.data.draft)
+		.filter((post) => {
+			// 过滤子文章和草稿
+			const parts = post.id.split(/[\\/]+/).filter(Boolean);
+			return !post.data.draft && parts.length <= 2;
+		})
 		.sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf());
 
 	return paginate(posts, {
@@ -25,7 +28,7 @@ const { page } = Astro.props;
 
 <PageLayout title={SITE_TITLE} description={t(DEFAULT_LOCALE, "siteDescription")}>
 	<Profile />
-	<section class="mt-xl" aria-labelledby="posts-heading">
+	<section class="mt-xl" aria-labelledby="posts-heading" data-pagination-target>
 		<h2
 			id="posts-heading"
 			class="m-0 font-mono text-fluid-l text-primary-700 dark:text-primary-400"

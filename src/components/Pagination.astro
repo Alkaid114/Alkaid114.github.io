@@ -1,6 +1,6 @@
 ---
-import type { Page } from "astro";
 import type { CollectionEntry } from "astro:content";
+import type { Page } from "astro";
 import Translated from "./Translated.astro";
 
 interface Props {
@@ -27,9 +27,9 @@ const buildSlots = (current: number, last: number): Slot[] => {
 	const visible = new Set<number>([1, last]);
 
 	if (current <= 3) {
-		for (let i = 1; i <= current; i++) visible.add(i);
+		for (let i = 1; i <= current + radius; i++) visible.add(i);
 	} else if (current >= last - 2) {
-		for (let i = current; i <= last; i++) visible.add(i);
+		for (let i = current - radius; i <= last; i++) visible.add(i);
 	} else {
 		for (let i = 1; i <= radius; i++) {
 			visible.add(current - i);

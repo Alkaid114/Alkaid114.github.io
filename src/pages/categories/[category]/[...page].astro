@@ -26,7 +26,7 @@ const { page, name } = Astro.props;
 ---
 
 <PageLayout title={`${name} | ${SITE_TITLE}`} description={t(DEFAULT_LOCALE, "siteDescription")}>
-	<header class="mb-l flex flex-col gap-2xs">
+	<header class="mb-l flex flex-col gap-2xs" data-pagination-target>
 		<a
 			href="/categories/"
 			class="font-mono text-fluid-s text-secondary-500 no-underline transition-colors hover:text-primary-600 dark:text-secondary-400 dark:hover:text-primary-300"

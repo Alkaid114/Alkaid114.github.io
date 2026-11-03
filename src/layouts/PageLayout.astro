@@ -55,7 +55,7 @@ const { title, description, titleKey, titleSuffix } = Astro.props;
 
 		<Header />
 		<main class="flex flex-1 justify-center">
-			<div class="w-full max-w-240 bg-secondary-50 p-s sm:p-m dark:bg-secondary-900">
+			<div class="w-full max-w-240 bg-secondary-50 sm:pt-xl p-s sm:p-m dark:bg-secondary-900">
 				<slot />
 			</div>
 		</main>
@@ -63,6 +63,7 @@ const { title, description, titleKey, titleSuffix } = Astro.props;
 		<FloatingActions />
 		<script>
 			import "../scripts/i18n";
+			import "../scripts/pagination-scroll";
 		</script>
 	</body>
 </html>

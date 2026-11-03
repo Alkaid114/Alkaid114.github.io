@@ -6,7 +6,6 @@ import { categoryHref, categoryLookup, resolveCategory } from "../utils/categori
 import { excerptFromBody } from "../utils/excerpt";
 import FormattedDate from "./FormattedDate.astro";
 import Pagination from "./Pagination.astro";
-import Translated from "./Translated.astro";
 
 interface Props {
 	page: Page<CollectionEntry<"posts">>;
@@ -68,13 +67,7 @@ const pageHref = (n: number) => (n === 1 ? baseHref : `${baseHref}${n}/`);
 {
 	page.lastPage > 1 && (
 		<>
-			<Pagination
-				{page}
-				radius={1}
-				href={pageHref}
-				compact
-				class="mt-l flex sm:hidden"
-			/>
+			<Pagination {page} radius={1} href={pageHref} compact class="mt-l flex sm:hidden" />
 			<Pagination {page} radius={2} href={pageHref} class="mt-l hidden sm:flex" />
 		</>
 	)

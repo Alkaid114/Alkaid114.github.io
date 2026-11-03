@@ -81,6 +81,10 @@ html[data-locale="en"] [data-locale-choice="en"] {
 }
 
 @custom-variant hover {
-  &:hover { @slot; }
-  &:active { @slot; }
+	&:hover {
+		@slot;
+	}
+	&:active {
+		@slot;
+	}
 }
