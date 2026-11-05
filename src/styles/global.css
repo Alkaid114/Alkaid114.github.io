@@ -55,7 +55,11 @@
 			transform: translate(0, 0);
 		}
 		to {
-			transform: translate(72px, -72px);
+			/* One tile along the 8deg-rotated pattern axes. */
+			transform: translate(
+				calc(72px * (cos(8deg) + sin(8deg))),
+				calc(72px * (sin(8deg) - cos(8deg)))
+			);
 		}
 	}
 	--animate-grid-scroll: grid-scroll 6s linear infinite;
