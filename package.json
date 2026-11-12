@@ -39,6 +39,10 @@
 		"@iconify-json/lucide": "^1.2.149",
 		"@iconify-json/simple-icons": "^1.2.101",
 		"@tailwindcss/typography": "^0.5.20",
+		"github-slugger": "^2.0.0",
+		"unified": "^11.0.5",
+		"uniorg": "^1.4.0",
+		"uniorg-parse": "^3.2.2",
 		"vite": "8.3.5"
 	},
 	"pnpm": {
