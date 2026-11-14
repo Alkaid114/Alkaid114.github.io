@@ -34,90 +34,75 @@ const category = categoryValue?.trim()
 <PageLayout {title} description={description} {titleKey}>
 	<article>
 		<div class="w-full">
-			{
-				heroImage && (
-					<Image
-						class="mx-auto block w-full rounded-xl shadow-box"
-						width={1020}
-						height={510}
-						src={heroImage}
-						alt=""
-					/>
-				)
-			}
+			{heroImage && (
+				<Image
+					class="mx-auto block w-full rounded-xl shadow-box"
+					width={1020}
+					height={510}
+					src={heroImage}
+					alt=""
+				/>
+			)}
 		</div>
-		<div class="mx-auto w-full max-w-220 px-s py-s">
-			<div
-				class="mb-s border-b border-secondary-200 py-s text-center leading-none dark:border-secondary-800"
-			>
+		<div class="mx-auto w-full max-w-220">
+			<div class="mb-s border-b border-secondary-200 py-s text-center leading-none dark:border-secondary-800">
 				<div class="mb-2xs flex-col flex text-secondary-700 dark:text-secondary-300 gap-2">
 					<FormattedDate date={published} />
-					{
-						category && (
-							<a
-								href={categoryHref(category.slug)}
-								class="font-mono text-fluid-xs text-primary-600 no-underline hover:underline dark:text-primary-300"
-							>
-								#{category.name}
-							</a>
-						)
-					}
-					{
-						updatedDate && (
-							<div class="italic">
-								<Translated name="lastUpdated" />{" "}
-								<FormattedDate date={updatedDate} />
-							</div>
-						)
-					}
+					{category && (
+						<a
+							href={categoryHref(category.slug)}
+							class="font-mono text-fluid-xs text-primary-600 no-underline hover:underline dark:text-primary-300"
+						>
+							#{category.name}
+						</a>
+					)}
+					{updatedDate && (
+						<div class="italic">
+							<Translated name="lastUpdated" /> <FormattedDate date={updatedDate} />
+						</div>
+					)}
 					<span>{author || NICKNAME}</span>
-					{
-						license && (
-							<div class="flex flex-col items-center justify-center bg-[#D37D43] w-full min-h-24 mb-s text-fluid-s text-secondary-900 font-sans font-extrabold">
-								<div class="flex items-center w-full pt-2 pb-2">
-									<Icon
-										name="carbon:warning-hex-filled"
-										class="shrink-0 ml-m size-12"
-									/>
-									<div class="flex flex-col flex-1 text-left ml-4">
-										<p>
-											<Translated name="licenseCaution" />{" "}
-											{license.url ? (
-												<a href={license.url} class="underline">
-													{license.name}
-												</a>
-											) : (
-												<span class="underline decoration-dashed decoration-1 underline-offset-4">
-													{license.name}
-												</span>
-											)}
-										</p>
-										<p class="text-fluid-xs font-normal">
-											{license.description ? (
-												<span>{license.description}</span>
-											) : (
-												<Translated
-													name={
-														license.url
-															? "licenseWithUrl"
-															: "licenseNoUrl"
-													}
-												/>
-											)}
-										</p>
-									</div>
+					{license && (
+						<div class="flex flex-col items-center justify-center bg-[#D37D43] w-full min-h-24 mb-s text-fluid-s text-secondary-900 font-sans font-extrabold">
+							<div class="flex items-center w-full pt-2 pb-2">
+								<Icon
+									name="carbon:warning-hex-filled"
+									class="shrink-0 ml-m size-12"
+								/>
+								<div class="flex flex-col flex-1 text-left ml-4">
+									<p>
+										<Translated name="licenseCaution" />{" "}
+										{license.url ? (
+											<a href={license.url} class="underline">
+												{license.name}
+											</a>
+										) : (
+											<span class="underline decoration-dashed decoration-1 underline-offset-4">
+												{license.name}
+											</span>
+										)}
+									</p>
+									<p class="text-fluid-xs font-normal">
+										{license.description ? (
+											<span>{license.description}</span>
+										) : (
+											<Translated
+												name={
+													license.url ? "licenseWithUrl" : "licenseNoUrl"
+												}
+											/>
+										)}
+									</p>
 								</div>
 							</div>
-						)
-					}
+						</div>
+					)}
 				</div>
 				<h1 class="m-0 text-fluid-l font-bold text-secondary-950 dark:text-secondary-50">
 					{titleKey ? <Translated name={titleKey} /> : title}
 				</h1>
 			</div>
-			<div
-				class="prose prose-xl prose-theme max-w-none font-sans text-fluid-xs prose-h1:text-fluid-l prose-h2:text-fluid-m prose-h3:text-fluid-s prose-h4:text-fluid-xs prose-h5:text-fluid-xs prose-h6:text-fluid-xs"
-			>
+			<div class="prose prose-xl prose-theme max-w-none font-sans text-fluid-xs prose-h1:text-fluid-l prose-h2:text-fluid-m prose-h3:text-fluid-s prose-h4:text-fluid-xs prose-h5:text-fluid-xs prose-h6:text-fluid-xs">
 				<slot />
 			</div>
 		</div>
